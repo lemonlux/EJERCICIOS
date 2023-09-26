@@ -120,6 +120,6 @@ console.log(rickAndMortyCharactersAgain[0], rickAndMortyCharactersAgain[4])
 
 // 1.6
 
-rickAndMortyCharactersAgain.splice(1, 0)
+rickAndMortyCharactersAgain.splice(1, 1)
 
 console.log(rickAndMortyCharactersAgain)
