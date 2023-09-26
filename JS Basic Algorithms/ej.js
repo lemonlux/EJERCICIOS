@@ -83,3 +83,43 @@ let m = 5
 let i = c*= m
 
 console.log(i)
+
+//!---------- ITERACION 4 ---------
+
+//1.1
+const avengers = ["HULK", "SPIDERMAN", "BLACK PANTHER"];
+
+console.log(avengers[0])
+
+//1.2
+
+avengers[0]= "IRONMAN"
+
+console.log(avengers)
+
+//1.3 ?????
+
+console.log(avengers.length)
+
+//1.4
+
+const rickAndMortyCharacters = ["Rick", "Beth", "Jerry"]
+
+rickAndMortyCharacters.push("Morty")
+rickAndMortyCharacters.push("Summer")
+
+console.log(rickAndMortyCharacters[4])
+
+//1.5
+
+const rickAndMortyCharactersAgain = ["Rick", "Beth", "Jerry", "Morty", "Summer", "Lapiz Lopez"]
+
+rickAndMortyCharactersAgain.pop()
+
+console.log(rickAndMortyCharactersAgain[0], rickAndMortyCharactersAgain[4])
+
+// 1.6
+
+rickAndMortyCharactersAgain.splice(1, 0)
+
+console.log(rickAndMortyCharactersAgain)
