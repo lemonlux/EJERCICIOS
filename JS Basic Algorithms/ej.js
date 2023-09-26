@@ -54,3 +54,4 @@ console.log(car1.finalPrice, car2.finalPrice)
 //1.1
 
 let j = 5
+let jx = 10
