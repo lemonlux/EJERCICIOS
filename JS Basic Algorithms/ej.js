@@ -54,4 +54,32 @@ console.log(car1.finalPrice, car2.finalPrice)
 //1.1
 
 let j = 5
-let jx = 10
+let p = 10
+console.log(j*p)
+
+//1.2
+
+let jy = 10
+let jz = 2
+console.log(jy/jz)
+
+//1.3
+
+console.log(15/9)
+
+// 1.4
+
+o = p + j
+
+let ox = p += j
+
+console.log(o, ox)
+
+// 1.5
+
+let c = 10
+let m = 5
+
+let i = c*= m
+
+console.log(i)
