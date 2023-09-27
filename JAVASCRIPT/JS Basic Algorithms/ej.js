@@ -160,3 +160,52 @@ if (((number3*5) == number1) && ((number1*2) == number2)) {
  if ((number2/2) == number1 || (number1/5) == number3) {
    console.log("number2 entre 2 es igual a number1 O number1 entre 5 es igual a number3");
   }
+
+
+  //!-------------------- ITERACION 6 --------------------------
+
+//----1.1----
+
+for (let i = 0; i <= 9; i++) {
+    console.log(i);
+  }
+
+  //1.2---- 1.2 Crea un bucle for que vaya desde 0 a 9 y muestralo por consola solo 
+//cuando el resto del numero dividido entre 2 sea 0.
+
+for (let x = 0; x <= 9; x++) {
+    if((x%2) == 0){
+    console.log(x)
+    }
+  }
+
+  //1.3----- 1.3 Crea un bucle para conseguir dormir contando ovejas. 
+// Este bucle tiene que dar 10 vueltas, es decir, 10 console.log.
+// Muestra por consola un mensaje diciendo 'Intentando dormir 🐑' en cada vuelta del bucle 
+// y cambia el mensaje en la décima vuelta a 'Dormido!'.
+
+for (let y = 1; y <= 10; y++) {
+    if(y != 10){
+    console.log("Intentando dormir 🐑")
+    }else console.log("Dormido!")
+  }
+
+ //--- con un ternario
+
+  for (let y = 1; y <= 10; y++) {
+    y == 10 ? console.log("Dormido!") : console.log("Intentando dormir 🐑")
+  }
+
+
+  //!---------- MINI RETO --------------
+
+  let planet = "Tierra"
+
+  let isInnerPlanet = true
+
+  let hasAtmosphere = true
+
+  if (isInnerPlanet == true && hasAtmosphere == true){
+    let isHabitable = true
+    console.log(isHabitable)
+  }
