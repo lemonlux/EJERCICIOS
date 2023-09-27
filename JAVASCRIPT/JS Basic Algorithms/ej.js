@@ -201,11 +201,15 @@ for (let y = 1; y <= 10; y++) {
 
   let planet = "Tierra"
 
-  let isInnerPlanet = true
+  let isInnerPlanet = false
 
   let hasAtmosphere = true
 
-  if (isInnerPlanet == true && hasAtmosphere == true){
-    let isHabitable = true
-    console.log(isHabitable)
-  }
+
+// if (isInnerPlanet && hasAtmosphere){
+//     let isHabitable = true
+//     console.log(isHabitable)
+//   }
+
+let isHabitable = isInnerPlanet || hasAtmosphere
+console.log(isHabitable)
