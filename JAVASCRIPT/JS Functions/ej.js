@@ -224,22 +224,29 @@ const duplicates = [
 
   //!------------------ ITERACION 8 --------------------
 
-//   const counterWords = [
-//     'code',
-//     'repeat',
-//     'eat',
-//     'sleep',
-//     'code',
-//     'enjoy',
-//     'sleep',
-//     'code',
-//     'enjoy',
-//     'upgrade',
-//     'code'
-//   ];
+  const counterWords = [
+    'code',
+    'repeat',
+    'eat',
+    'sleep',
+    'code',
+    'enjoy',
+    'sleep',
+    'code',
+    'enjoy',
+    'upgrade',
+    'code'
+  ];
   
-//   const countWords = (array, word) =>{
-//     if (array.indexOf(word)==array.lastIndexOf(words)){
-//         return 1
-//     }
-//   }
+  
+
+  const countWords = (array) =>{
+    for (i=0; i<array; i++){
+        if (array[i]=array[i]){
+        return array.splice(array[i], (array[i]+1))
+        }
+    }
+    }
+
+    console.log(countWords(counterWords))
+  
