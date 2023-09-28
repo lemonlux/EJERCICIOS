@@ -168,7 +168,7 @@ const sumaRara = (array) => {
 const sumaArray = sumaRara(mixedElements)
 
 console.log(sumaArray)
-
+console.log("------------------")
 
 //!------------------ ITERACION 6 ----------------
 
@@ -186,7 +186,6 @@ const duplicates = [
     'soda'
   ];
 
-  console.log(duplicates.indexOf("pizza"))
 
   const  removeDuplicates = (array, food) => {
     if (array.indexOf(food)!=array.lastIndexOf(food)){
@@ -194,7 +193,7 @@ const duplicates = [
     }
         }
 
-        console.log(removeDuplicates(duplicates))
+    console.log(removeDuplicates(duplicates))
 
   //! ---------------- ITERACION 7 ---------------
 
@@ -221,7 +220,7 @@ const duplicates = [
   }
 
   console.log(finderName(nameFinder, "Jessica"))
- 
+
 
   //!------------------ ITERACION 8 --------------------
 
