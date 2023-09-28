@@ -168,3 +168,79 @@ const sumaRara = (array) => {
 const sumaArray = sumaRara(mixedElements)
 
 console.log(sumaArray)
+
+
+//!------------------ ITERACION 6 ----------------
+
+const duplicates = [
+    'sushi',
+    'pizza',
+    'burger',
+    'potatoe',
+    'pasta',
+    'ice-cream',
+    'pizza',
+    'chicken',
+    'onion rings',
+    'pasta',
+    'soda'
+  ];
+
+  console.log(duplicates.indexOf("pizza"))
+
+  const  removeDuplicates = (array, food) => {
+    if (array.indexOf(food)!=array.lastIndexOf(food)){
+        return array.splice((array.indexOf(food)),(array.indexOf(food)+1))
+    }
+        }
+
+        console.log(removeDuplicates(duplicates))
+
+  //! ---------------- ITERACION 7 ---------------
+
+  const nameFinder = [
+    'Peter',
+    'Steve',
+    'Tony',
+    'Natasha',
+    'Clint',
+    'Logan',
+    'Xabier',
+    'Bruce',
+    'Peggy',
+    'Jessica',
+    'Marc'
+  ];
+  const finderName = (array, nombre) => {
+    if (array.indexOf(nombre)>= 0){
+        return `true, ${array.indexOf(nombre)}`
+
+    } else{
+        return false
+    }
+  }
+
+  console.log(finderName(nameFinder, "Jessica"))
+ 
+
+  //!------------------ ITERACION 8 --------------------
+
+//   const counterWords = [
+//     'code',
+//     'repeat',
+//     'eat',
+//     'sleep',
+//     'code',
+//     'enjoy',
+//     'sleep',
+//     'code',
+//     'enjoy',
+//     'upgrade',
+//     'code'
+//   ];
+  
+//   const countWords = (array, word) =>{
+//     if (array.indexOf(word)==array.lastIndexOf(words)){
+//         return 1
+//     }
+//   }
