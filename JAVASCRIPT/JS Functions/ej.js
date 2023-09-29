@@ -158,7 +158,8 @@ const sumaRara = (array) => {
 const sumaArray = sumaRara(mixedElements)
 
 console.log(sumaArray)
-console.log("------------------")
+console.log(sumaRara(mixedElements))
+console.log("----------aqui--------")
 
 //!------------------ ITERACION 6 ----------------
 
@@ -176,25 +177,35 @@ const duplicates = [
     'soda'
   ];
 
-const noDuplicates = []
+const noDuplicatesFuction = (array) =>{
+    let noDuplicates = []
+    array.forEach(food => {     // el forEach ejecuta la funcion para cada elemento del array
+        !noDuplicates.includes(food) && noDuplicates.push(food)
+      })
+    return noDuplicates
+}
 
- duplicates.forEach((food, index)=>{     // el forEach ejecuta la funcion para cada elemento del array
-   !noDuplicates.includes(food) && noDuplicates.push(food)
- })
+console.log(noDuplicatesFuction(duplicates))
 
- console.log(noDuplicates)
+
+//  duplicates.forEach((food, index)=>{     // el forEach ejecuta la funcion para cada elemento del array
+//    !noDuplicates.includes(food) && noDuplicates.push(food)
+//  })
+
+//  console.log(noDuplicates)
 
 
 // con un ternario? --------- ?????????????????????
 
 console.log("-------------")
 
+
 const noDuplicatesTwo = []
 
-duplicates.forEach((food, index)=>{
-    return (noDuplicatesTwo.includes(food)) ? 
-    null
-    : noDuplicates.push(food)
+duplicates.forEach(food=>{
+    if (noDuplicatesTwo.includes(food)){
+    return null
+    }else noDuplicatesTwo.push(food)
 })
 
 console.log(noDuplicatesTwo)
@@ -215,7 +226,7 @@ console.log(noDuplicatesTwo)
     'Jessica',
     'Marc'
   ];
-  const finderName = (array, nombre) => {         // --- podriamos poner (name, index) como en el forEach?
+  const finderName = (array, nombre) => {         // --- podriamos poner (name, index) como en el forEach? NO
     if (array.indexOf(nombre)>= 0){
         return `true, ${array.indexOf(nombre)}`
 
@@ -223,6 +234,8 @@ console.log(noDuplicatesTwo)
         return false
     }
   }
+
+console.log(finderName(nameFinder, 'Jessica'))
 
 
 
@@ -241,35 +254,39 @@ console.log(noDuplicatesTwo)
     'upgrade',
     'code'
   ];
+
+
+ const countWordsFuction = (array) => {
+    const wordCounter = {};                 // creamos un nuevo array donde meter las cosas
+    for (let i = 0; i < array.length; i++) {      // iteracion
+      const word = array[i];                  // cada word es una posicion del array                 
+      if (wordCounter[word]) {              // si la palbra esta
+        wordCounter[word]++;
+      } else {
+        wordCounter[word] = 1;
+      }
+    }
+    return wordCounter;
+  }
   
-//   const wordCounter = []
-
-
-
-//   const countWords = (array) =>{
-//     for (i=0; i<array.length; i++){
-//         if {
-//         return array.splice(array[i], (array[i]+1))
-//         }
-//     }
-//     }
-
-//     console.log(countWords(counterWords))
   
+  const result = countWordsFuction(counterWords);
+  console.log(result);
+  
+  // ---------------- con for Each 
 
+  console.log("-----------forEach------")
 
-
-    // counterWords.forEach((word, index)=>{       // iteramos todos los elementos en el array principal
-    //     let acc = 0                              // acumula o suma un conjunto de valores
-    //     wordCounter.forEach((item, index)=>{        // iteramos todos los elementos en el nuevo array
-    //         wordCounter.includes(word) && acc++       // solo incluimos (ambos true) sumando el acc de 1 en 1
-    //     }) 
-    //     if (acc == 0){
-    //         acc == 0
-    //         counterWords.forEach((word2, index)=>{
-    //             word == word2 && acc ++
-    //         })
-    //     }
-        
-    // })
+  const funcionContar = (array) => {
+    let contadorPalabras = []
+    array.forEach(palabra=>{
+        contadorPalabras[palabra] ? contadorPalabras[palabra]++ : (contadorPalabras[palabra] = 1)
     
+        })
+        return contadorPalabras
+    }
+
+
+
+  console.log(funcionContar(counterWords))
+
