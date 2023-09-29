@@ -14,15 +14,15 @@ const mayor = (x,y) => {
     return x > y ? x : y
 }
 
-const resultadoMayor = mayor(100, 5)
+// const resultadoMayor = mayor(100, 5)  ------- no es necesario
 
-console.log(resultadoMayor)
+// console.log(resultadoMayor)
 
-// const numeroUno = (x,y) => x
+console.log(mayor(200, 8))
 
-// const test = numeroUno(5)
+const numeroUno = (x,y) => x
 
-// console.log(test)
+console.log(numeroUno(5)) // devuelve 5
 
 console.log("-------------------------------")
 
@@ -34,13 +34,13 @@ const avengers = ['Hulk', 'Thor', 'IronMan', 'Captain A.', 'Spiderman', 'Captain
 
 //? ---- function
 
-function findLongestWord(array) {
-   let palabraMasLarga = ""
-   let longitudMayor = 0
-   for (let i= 0; i< array.length; i++ ) {
-    if  (array[i].length > longitudMayor) {
-        longitudMayor = array[i].length
-        palabraMasLarga = array[i]
+function findLongestWord(lista) {             // funcion nombreFuncion (parametrosFuncion) {
+   let palabraMasLarga = ""                     //   let  variable = ""    inicializamos variable
+   let longitudMayor = 0                        //   let variable2 = 0     inicializamos var numerica
+   for (let i= 0; i< lista.length; i++ ) {      //    bucle o iteración que pasa por toda la lista o array
+    if  (lista[i].length > longitudMayor) {
+        longitudMayor = lista[i].length
+        palabraMasLarga = lista[i]
     }
 
    }
@@ -49,18 +49,8 @@ function findLongestWord(array) {
 
 console.log(findLongestWord(avengers))
 
-//? ---- fuction array
+//? ---- fuction arrow
 
-//  const findLongest = (array) => {
-//     let longestWord = ""
-//     let longestLength = 0
-//     for (let i=0; i< array.lenght; i++) {
-//         array[i].length > longestLength ? {
-//             longestLength = array[i].length
-//             longestWord = array[i]
-//         } console.log(longestWord):console.log(null)
-//     }
-//  }
 
 const findLongest = (array) => {
     let longestWord = ""
@@ -186,14 +176,29 @@ const duplicates = [
     'soda'
   ];
 
+const noDuplicates = []
 
-  const  removeDuplicates = (array, food) => {
-    if (array.indexOf(food)!=array.lastIndexOf(food)){
-        return array.splice((array.indexOf(food)),(array.indexOf(food)+1))
-    }
-        }
+ duplicates.forEach((food, index)=>{     // el forEach ejecuta la funcion para cada elemento del array
+   !noDuplicates.includes(food) && noDuplicates.push(food)
+ })
 
-    console.log(removeDuplicates(duplicates))
+ console.log(noDuplicates)
+
+
+// con un ternario? --------- ?????????????????????
+
+console.log("-------------")
+
+const noDuplicatesTwo = []
+
+duplicates.forEach((food, index)=>{
+    return (noDuplicatesTwo.includes(food)) ? 
+    null
+    : noDuplicates.push(food)
+})
+
+console.log(noDuplicatesTwo)
+
 
   //! ---------------- ITERACION 7 ---------------
 
@@ -210,7 +215,7 @@ const duplicates = [
     'Jessica',
     'Marc'
   ];
-  const finderName = (array, nombre) => {
+  const finderName = (array, nombre) => {         // --- podriamos poner (name, index) como en el forEach?
     if (array.indexOf(nombre)>= 0){
         return `true, ${array.indexOf(nombre)}`
 
@@ -219,7 +224,6 @@ const duplicates = [
     }
   }
 
-  console.log(finderName(nameFinder, "Jessica"))
 
 
   //!------------------ ITERACION 8 --------------------
@@ -238,15 +242,34 @@ const duplicates = [
     'code'
   ];
   
+//   const wordCounter = []
+
+
+
+//   const countWords = (array) =>{
+//     for (i=0; i<array.length; i++){
+//         if {
+//         return array.splice(array[i], (array[i]+1))
+//         }
+//     }
+//     }
+
+//     console.log(countWords(counterWords))
   
 
-  const countWords = (array) =>{
-    for (i=0; i<array; i++){
-        if (array[i]=array[i]){
-        return array.splice(array[i], (array[i]+1))
-        }
-    }
-    }
 
-    console.log(countWords(counterWords))
-  
+
+    // counterWords.forEach((word, index)=>{       // iteramos todos los elementos en el array principal
+    //     let acc = 0                              // acumula o suma un conjunto de valores
+    //     wordCounter.forEach((item, index)=>{        // iteramos todos los elementos en el nuevo array
+    //         wordCounter.includes(word) && acc++       // solo incluimos (ambos true) sumando el acc de 1 en 1
+    //     }) 
+    //     if (acc == 0){
+    //         acc == 0
+    //         counterWords.forEach((word2, index)=>{
+    //             word == word2 && acc ++
+    //         })
+    //     }
+        
+    // })
+    
