@@ -12,7 +12,7 @@ products.forEach(item=>{
     })
 
 
-// --------- ITERACION 2 -------------------
+// --------- ITERACION 2 -------------------        ??
 
 const alumns = [
     {name: 'Pepe Viruela', T1: false, T2: false, T3: true}, 
@@ -72,10 +72,9 @@ var dieHardObj = {
 for (key in dieHardObj) {
   console.log(key, dieHardObj[key]);  
 }
- 
-console.log("-----------")
 
-// ---------- ITERACION 5 ------------
+
+// ---------- ITERACION 5 ------------    ????
 
 const placesToTravelTo = 
 [{id: 5, name: 'Japan'}, 
@@ -97,4 +96,25 @@ for (let i=0; i<placesToTravelTo.length; i++){
    return goodPlaces
 }
 
-console.log(goodPlaces)
+// console.log(goodPlaces)
+
+
+//------------- ITERACION 6 ---------------
+
+
+const toys = [
+  {id: 5, name: 'Buzz MyYear'}, 
+  {id: 11, name: 'Action Woman'}, 
+  {id: 23, name: 'Barbie Man'}, 
+  {id: 40, name: 'El gato con Guantes'},
+  {id: 40, name: 'El gato felix'}
+  ]
+
+  for (item of toys){
+    for (keys in toys){
+    console.log(this.id, this.name)
+    }
+  }
+
+
+  console.log("hola")
