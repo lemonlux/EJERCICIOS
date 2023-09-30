@@ -1,6 +1,6 @@
 // --------- ITERACION 1 -----------------------
 
-
+console.log("--------1---------")
 const products = ['Camiseta de Pokemon', 'Pantalón coquinero', 'Gorra de gansta', 'Camiseta de Basket', 'Cinrurón de Orión', 'AC/DC Camiseta']
 
 
@@ -13,7 +13,7 @@ products.forEach(item=>{
 
 
 // --------- ITERACION 2 -------------------        ??
-
+console.log("--------2---------")
 const alumns = [
     {name: 'Pepe Viruela', T1: false, T2: false, T3: true}, 
 		{name: 'Lucia Aranda', T1: true, T2: false, T3: true},
@@ -22,21 +22,23 @@ const alumns = [
 		{name: 'Raquel Benito', T1: true, T2: true, T3: true}
 ]
 
-let acc = 0
-alumns.forEach(item=>{
+const approvedAlumns = []
 
+
+
+alumns.forEach((alumn)=>{
+  (alumn.T1 || alumn.T2) && (alumn.T2 || alumn.T3) && approvedAlumns.push(alumn)
 })
 
-
-
-
-
-
+approvedAlumns.forEach((alumno)=>{
+  alumno.isApproved = true
+})
+console.log(approvedAlumns)
 
 
 
 //------------- ITERACION 3 -------------------------
-
+console.log("--------3---------")
 
 const placesToTravel = ['Japon', 'Venecia', 'Murcia', 'Santander', 'Filipinas', 'Madagascar']
 
@@ -46,7 +48,7 @@ for (location of placesToTravel){
 
 
 // ------------- ITERACION 4 --------------------
-
+console.log("--------4---------")
 const alien = {
   name: 'Wormuck',
   race: 'Cucusumusu',
@@ -61,20 +63,22 @@ for(let key in alien){
 
 // --- apuntes
 
-var dieHardArray = [1, 2,'Simon', 'John McClane', 'Zeus Carver'];
+// var dieHardArray = [1, 2,'Simon', 'John McClane', 'Zeus Carver'];
 
-var dieHardObj = {
-  name: 'John',
-	surname: 'McClane',
-  age: 37
-};
+// var dieHardObj = {
+//   name: 'John',
+// 	surname: 'McClane',
+//   age: 37
+// };
  
-for (key in dieHardObj) {
-  console.log(key, dieHardObj[key]);  
-}
+// for (key in dieHardObj) {
+//   console.log(key, dieHardObj[key]);  
+// }
 
 
-// ---------- ITERACION 5 ------------    ????
+// ---------- ITERACION 5 ------------    
+
+console.log("--------5---------")
 
 const placesToTravelTo = 
 [{id: 5, name: 'Japan'}, 
@@ -85,7 +89,15 @@ const placesToTravelTo =
 {id: 59, name: 'Madagascar'}]
 
 
+const goodPlaces = []
 
+for (let i=0; i<placesToTravelTo.length; i++){
+  let places = placesToTravelTo[i]
+     places.id!=11 && places.id!=40 && goodPlaces.push(places)
+// console.log(placesToTravelTo[i])
+    }
+
+console.log(goodPlaces)
 
 
 
@@ -110,11 +122,10 @@ const placesToTravelTo =
 // }
 
 
-console.log("----fin it5------")
 
 
 //------------- ITERACION 6 ---------------
-
+console.log("--------6---------")
 
 const toys = [
   {id: 5, name: 'Buzz MyYear'}, 
@@ -138,7 +149,7 @@ const toys = [
 
     // ------------ ITERACION 7 -------------------
 
-
+    console.log("--------7---------")
 
 const bestToys = [
 	{id: 5, name: 'Buzz MyYear', sellCount: 10}, 
@@ -151,17 +162,8 @@ const bestToys = [
 const popularToys = [];
 
 for (let bestToy of bestToys){
-    // for (clave in bestToy){
       bestToy.sellCount>=15 && popularToys.push(bestToy)
     }
-//   this.sellCount==15 && popularToys.push(bestToy)
-// }
-// return popularToys
-// }
-
-// function prueba (){
-//   return this.sellCount
-// }
 
 console.log(popularToys)
 
