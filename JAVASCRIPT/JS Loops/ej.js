@@ -84,17 +84,30 @@ const placesToTravelTo =
 {id: 44, name: 'Filipinas'}, 
 {id: 59, name: 'Madagascar'}]
 
-let goodPlaces = []
-console.log("prueba")
-for (let i=0; i<placesToTravelTo.length; i++){
-//    console.log(placesToTravelTo[i])                   //  nos da cada uno de los object object, es como un for of
-   let array = placesToTravelTo[i]
-   for (let key in array){
-    // console.log(array[key])                  // nos da id 5 name Japan
-    (array[key]!==11) && goodPlaces.push(placesToTravelTo)
- }
-  //  console.log(goodPlaces)
-}
+
+
+
+
+
+
+
+
+
+
+// let goodPlaces = []
+// console.log("prueba")
+// for (let i=0; i<placesToTravelTo.length; i++){
+// //    console.log(placesToTravelTo[i])                   //  nos da cada uno de los object object, es como un for of
+//    let object = placesToTravelTo[i]
+//    for (let key in object){
+//  //   console.log(placestoTravelTo[key]!==11)                  // nos da false cuandi id=11
+//      if ((object[key]!==11) && (object[key]!==40)){
+//       !goodPlaces.includes(object) && goodPlaces.push(object) 
+//      }
+      
+//  }
+//   console.log(goodPlaces)
+// }
 
 
 console.log("----fin it5------")
@@ -111,8 +124,14 @@ const toys = [
   {id: 40, name: 'El gato felix'}
   ]
 
-  for (item of toys){
-    for (keys in toys){
- //   console.log(this.id, this.name)
+  const noCatToy = []
+  
+  for (toy of toys){
+    const names = Object.values(toy)
+    //console.log(names)                                       //te da cada uno de los valores 5, buzz myyear
+    !names.toString().includes("gato") && noCatToy.push(toy)
+      
     }
-  }
+
+    console.log(noCatToy)
+  
