@@ -135,3 +135,33 @@ const toys = [
 
     console.log(noCatToy)
   
+
+    // ------------ ITERACION 7 -------------------
+
+
+
+const bestToys = [
+	{id: 5, name: 'Buzz MyYear', sellCount: 10}, 
+	{id: 11, name: 'Action Woman', sellCount: 24}, 
+	{id: 23, name: 'Barbie Man', sellCount: 15}, 
+	{id: 40, name: 'El gato con Guantes', sellCount: 8},
+	{id: 40, name: 'El gato felix', sellCount: 35}
+]
+
+const popularToys = [];
+
+for (let bestToy of bestToys){
+    // for (clave in bestToy){
+      bestToy.sellCount>=15 && popularToys.push(bestToy)
+    }
+//   this.sellCount==15 && popularToys.push(bestToy)
+// }
+// return popularToys
+// }
+
+// function prueba (){
+//   return this.sellCount
+// }
+
+console.log(popularToys)
+
