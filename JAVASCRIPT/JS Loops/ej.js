@@ -85,18 +85,19 @@ const placesToTravelTo =
 {id: 59, name: 'Madagascar'}]
 
 let goodPlaces = []
-
+console.log("prueba")
 for (let i=0; i<placesToTravelTo.length; i++){
 //    console.log(placesToTravelTo[i])                   //  nos da cada uno de los object object, es como un for of
    let array = placesToTravelTo[i]
    for (let key in array){
-    // console.log(key, array[key])                        // nos da id 5 name Japan
-   !key==11 && goodPlaces.push(placesToTravelTo[i])
-   }
-   return goodPlaces
+    // console.log(array[key])                  // nos da id 5 name Japan
+    (array[key]!==11) && goodPlaces.push(placesToTravelTo)
+ }
+  //  console.log(goodPlaces)
 }
 
-// console.log(goodPlaces)
+
+console.log("----fin it5------")
 
 
 //------------- ITERACION 6 ---------------
@@ -112,9 +113,6 @@ const toys = [
 
   for (item of toys){
     for (keys in toys){
-    console.log(this.id, this.name)
+ //   console.log(this.id, this.name)
     }
   }
-
-
-  console.log("hola")

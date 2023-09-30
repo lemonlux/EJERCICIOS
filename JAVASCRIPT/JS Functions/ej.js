@@ -273,7 +273,7 @@ console.log(finderName(nameFinder, 'Jessica'))
   const result = countWordsFuction(counterWords);
   console.log(result);
   
-  // ---------------- con for Each 
+  // ---------------- con for Each  y un ternario
 
   console.log("-----------forEach------")
 
