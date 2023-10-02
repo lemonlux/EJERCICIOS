@@ -56,26 +56,83 @@ const users = [
     },
 ]
 
-let averageVolume = []
-let volumes = []
-let sum = 0
-let total = 0
 
+let acc = 0
+let value = 0
+let volumes = 0
+let media = 0
 
-for (let user of users){
-    let sounds = user.favoritesSounds
-    for (let type in sounds){
-        let values = sounds[type]
-        for (let volume in values){
-//        console.log(values[volume])
-        (typeof values[volume] == "number") && (sum += values[volume])
-        (typeof values[volume] == "number") && (total++)
-
+for (const user of users){
+    const {favoritesSounds} = user
+    for(let sound in favoritesSounds){
+     //   console.log(favoritesSounds[sound])
+         value = favoritesSounds[sound].volume
+     //    console.log(value)
+        volumes = volumes + value
+     //   console.log(volumes)
+        acc++                               // para cada bucle sumame 1
+         media = volumes/acc
     }
-    console.log(sum, total)
 }
-}
+
+ console.log(media)         // el console.log tiene que estar fuera del bucle o te va saliendo tantos bucles haya
+
+
+
+
+
+
+
+// for (user of users){
+//     let sounds = user.favoritesSounds
+//    for (sound in sounds){
+//     let data = sounds[sound]
+//     for (let value in data){
+//    //     console.log(data[value])
+//   //  (typeOf (data[value]) == "number") && acc +=
+//    }
+// } 
+//  //  console.log(acc)
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// let averageVolume = []
+// let volumes = []
+// let sum = 0
+// let total = 0
+
+
+// for (let user of users){
+//     let sounds = user.favoritesSounds
+//     for (let type in sounds){
+//         let values = sounds[type]
+//         for (let volume in values){
+// //        console.log(values[volume])
+//         (typeof values[volume] == "number") && (sum += values[volume])
+//         (typeof values[volume] == "number") && (total++)
+
+//     }
+//     console.log(sum, total)
+// }
+// }
 
 
    //---------------- ITERACION 3 -----------------
 
+
+
+   // --------------- ITERACION 4 ------------------
