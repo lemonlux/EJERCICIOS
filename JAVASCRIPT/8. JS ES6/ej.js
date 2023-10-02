@@ -108,3 +108,60 @@ colors2.splice(1,1)
 console.log(colors2)
 
 
+// ------------ ITERACION 4 ----------
+console.log("-------4-------")
+//4.1
+
+const users = [
+	{id: 1, name: 'Abel'},
+	{id:2, name: 'Julia'},
+	{id:3, name: 'Pedro'},
+	{id:4, name: 'Amanda'}
+];
+
+const usersName = users.map((item)=>{
+    return item.name
+})
+
+console.log(usersName)
+
+//4.2
+const noANames = []
+
+const mapNames = users.map((item)=>{
+    let names = item.name
+    if (names.toString().toLowerCase().charAt(0) != "a"){
+        noANames.push(item.name)
+    }else noANames.push("Anacleto")
+}
+)
+
+console.log(noANames)
+
+//4.3       ---------- probar hacerlo de otra manera
+
+const cities = [
+	{isVisited:true, name: 'Tokyo'}, 
+	{isVisited:false, name: 'Madagascar'},
+	{isVisited:true, name: 'Amsterdam'}, 
+	{isVisited:false, name: 'Seul'}
+];
+
+const visitedCities = []
+
+const mapCities  = cities.map((item)=>{
+    let city = item.name
+    let visited = item.isVisited
+     visited == true ? visitedCities.push(city, "Visitado") : visitedCities.push(city, "No visitado") 
+    
+})
+
+
+console.log(visitedCities)
+
+
+// const mapCities2 = cities.map((item)=>{
+//     let city = item.name
+//     let visited = item.isVisited
+//     visited == true ? const citiesCopy=[...cities]
+// })
