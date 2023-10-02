@@ -145,8 +145,17 @@ const funcionContar = () =>{
     )
     return contador
 }
+const mostFavourite = funcionContar(favorites)
 
-console.log(funcionContar(favorites))  
+for(let sound in mostFavourite){
+    if (mostFavourite[sound] == 1){
+    console.log(`El sonido ${sound} ha sido ${mostFavourite[sound]} vez añadido a favoritos`)
+    }else 
+    console.log(`El sonido ${sound} ha sido ${mostFavourite[sound]} veces añadido a favoritos`)
+}
+
+
+console.log(mostFavourite)
 
 
    // --------------- ITERACION 4 ------------------
@@ -164,3 +173,34 @@ console.log(funcionContar(favorites))
    }
 
    console.log(findArrayIndex(ejemplo, "Ajolote"))
+
+   // -------------- ITERACION 5 --------------------
+
+
+
+   // -------------- ITERACION 6 --------------------
+
+
+
+   const players = ['Mesirve', 'Cristiano Romualdo', 'Fernando Muralla', 'Ronalguiño']
+
+   console.log(players[1])
+
+   const swap = (array, index1, index2) =>{
+   let change = array[index1]
+    array[index1] = array[index2]
+    array[index2] = change
+   }
+   swap(players, 2, 3)
+
+  // console.log(players)
+
+   // ------ con destructuring --------------------
+
+   const swap2 = (array, index1, index2) =>{
+    [array[index1],array[index2]]=[array[index2],array[index1]]
+   }
+
+   swap2(players, 1, 2)
+
+   console.log(players)
