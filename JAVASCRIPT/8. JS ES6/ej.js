@@ -165,3 +165,56 @@ console.log(visitedCities)
 //     let visited = item.isVisited
 //     visited == true ? const citiesCopy=[...cities]
 // })
+
+
+
+// ---------  ITERACION 5 ---------
+console.log("-------5-------")
+//5.1
+
+const ages = [22, 14, 24, 55, 65, 21, 12, 13, 90];
+
+const ageFilter = ages.filter((item)=>{
+    return item >= 18
+})
+
+console.log(ageFilter)
+
+//5.2
+
+const evenNumberFilter = ages.filter((item)=>{
+   return item%2 == 0
+})
+console.log(evenNumberFilter)
+
+//5.3
+
+const streamers = [
+	{name: 'Rubius', age: 32, gameMorePlayed: 'Minecraft'},
+	{name: 'Ibai', age: 25, gameMorePlayed: 'League of Legends'}, 
+	{name: 'Reven', age: 43, gameMorePlayed: 'League of Legends'},
+	{name: 'AuronPlay', age: 33, gameMorePlayed: 'Among Us'}
+];
+
+
+const streamersFilter = streamers.filter((streamer)=>{
+    return streamer.gameMorePlayed === "League of Legends"
+})
+
+console.log(streamersFilter)
+
+//5.4
+
+const uFilter = streamers.filter((streamer)=>{
+    return streamer.name.includes("u")
+})
+
+console.log(uFilter)
+
+//5.5
+console.log("-----5.5-----")
+
+const legendsFilter = streamers.filter(streamer=>{
+    return streamer.gameMorePlayed.includes("Legends") && streamer.age >= 35? streamer.gameMorePlayed.toUpperCase() : null
+} 
+)
