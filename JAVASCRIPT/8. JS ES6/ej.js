@@ -266,7 +266,7 @@ const moviesFind = movies.find((movie)=>{
 console.log(moviesFind)
 
 
-//6.3
+//!6.3 -------------------------
 const aliens = [
 	{name: 'Zalamero', planet: 'Eden', age: 4029},
 	{name: 'Paktu', planet: 'Andromeda', age: 32},
@@ -282,11 +282,67 @@ const findAlien = aliens.find((alien)=>{
     return alien.name == "Cucushumushu"
 })
 
-const findMutation = mutations.find((mutation)=>{
-   return mutation.name == "Porompompero"
+// const findMutation = mutations.find((mutation)=>{
+//    return mutation.name == "Porompompero"
+// })
+
+const mutation = mutations.find(mutation=>{
+    if (mutation.name == "Porompompero"){
+        return mutation
+    }
 })
 
 
-const alienCopy = {...findAlien, ...findMutation}
 
-console.log(alienCopy)
+const alienCopy = {...findAlien, mutation}
+
+ console.log(alienCopy)
+
+
+//-------- ITERACION 7 ---------------
+
+//7.1
+
+const exams = [
+    {name: 'Yuyu Cabeza Crack', score: 5}, 
+    {name: 'Maria Aranda Jimenez', score: 1}, 
+    {name: 'Cristóbal Martínez Lorenzo', score: 6}, 
+    {name: 'Mercedez Regrera Brito', score: 7},
+    {name: 'Pamela Anderson', score: 3},
+    {name: 'Enrique Perez Lijó', score: 6},
+    {name: 'Pedro Benitez Pacheco', score: 8},
+    {name: 'Ayumi Hamasaki', score: 4},
+    {name: 'Robert Kiyosaki', score: 2},
+    {name: 'Keanu Reeves', score: 10}
+]
+
+
+const suma = exams.reduce((acc, exam)=>{
+    return acc + exam.score
+}, 0)
+
+
+console.log(suma)
+
+
+//7.2
+
+const aprobados = exams.filter(exam=>{
+    return exam.score >= 5
+})
+
+
+const sumaAprobados = aprobados.reduce((acc, exam)=>{
+        return acc + exam.score
+}, 0)
+
+console.log(sumaAprobados)
+
+const media = exams.reduce((acc, exam)=>{
+    return (acc + exam.score)
+},0)
+
+console.log(media/exams.length)
+
+
+
