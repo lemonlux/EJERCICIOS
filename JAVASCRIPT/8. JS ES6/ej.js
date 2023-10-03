@@ -138,7 +138,7 @@ const mapNames = users.map((item)=>{
 
 console.log(noANames)
 
-//4.3       ---------- probar hacerlo de otra manera
+//4.3 
 
 const cities = [
 	{isVisited:true, name: 'Tokyo'}, 
@@ -150,14 +150,15 @@ const cities = [
 const visitedCities = []
 
 const mapCities  = cities.map((item)=>{
-    let city = item.name
-    let visited = item.isVisited
-     visited == true ? visitedCities.push(city, "Visitado") : visitedCities.push(city, "No visitado") 
-    
+    // let city = item.name
+    // let visited = item.isVisited
+    //  visited == true ? visitedCities.push(city, "Visitado") : visitedCities.push(city, "No visitado") 
+    return item.isVisited ? `${item.name} visitado` : item.name
+    //! item.isVisited no hace falta ponerle == true porque ya es true 
 })
 
 
-console.log(visitedCities)
+console.log(mapCities)
 
 
 // const mapCities2 = cities.map((item)=>{
@@ -169,6 +170,7 @@ console.log(visitedCities)
 
 
 // ---------  ITERACION 5 ---------
+
 console.log("-------5-------")
 //5.1
 
@@ -211,10 +213,80 @@ const uFilter = streamers.filter((streamer)=>{
 
 console.log(uFilter)
 
-//5.5
+//5.5 
 console.log("-----5.5-----")
 
 const legendsFilter = streamers.filter(streamer=>{
-    return streamer.gameMorePlayed.includes("Legends") && streamer.age >= 35? streamer.gameMorePlayed.toUpperCase() : null
+    return streamer.gameMorePlayed.includes("Legends")
 } 
 )
+
+for (let stream of legendsFilter){
+    if (stream.age > 35){ 
+        stream.gameMorePlayed = stream.gameMorePlayed.toUpperCase()
+}
+}
+
+console.log(legendsFilter)
+
+
+
+
+//5.6
+
+//5.7
+
+
+//----------- ITERACION 6 -------------
+console.log("-------6-------")
+//6.1
+
+const numbers = [32, 21, 63, 95, 100, 67, 43]
+
+const numbersFind = numbers.find((number)=>{
+    return number == 100
+})
+
+console.log(numbersFind)
+
+
+//6.2
+
+const movies = [
+	{title: 'Madagascar', stars: 4.5, date: 2015},
+	{title: 'Origen', stars: 5, date: 2010},
+	{title: 'Your Name', stars: 5, date: 2016}
+];
+
+
+const moviesFind = movies.find((movie)=>{
+    return movie.date == 2015
+})
+
+console.log(moviesFind)
+
+
+//6.3
+const aliens = [
+	{name: 'Zalamero', planet: 'Eden', age: 4029},
+	{name: 'Paktu', planet: 'Andromeda', age: 32},
+	{name: 'Cucushumushu', planet: 'Marte', age: 503021}
+];
+const mutations = [
+	{name: 'Porompompero', description: 'Hace que el alien pueda adquirir la habilidad de tocar el tambor'},
+	{name: 'Fly me to the moon', description: 'Permite volar, solo y exclusivamente a la luna'},
+	{name: 'Andando que es gerundio', description: 'Invoca a un señor mayor como Personal Trainer'}
+];
+
+const findAlien = aliens.find((alien)=>{
+    return alien.name == "Cucushumushu"
+})
+
+const findMutation = mutations.find((mutation)=>{
+   return mutation.name == "Porompompero"
+})
+
+
+const alienCopy = {...findAlien, ...findMutation}
+
+console.log(alienCopy)
