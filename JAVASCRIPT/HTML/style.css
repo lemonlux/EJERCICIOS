@@ -1,0 +1,25 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    justify-content: center;
+    align-items: center;
+}
+img{
+    display: flex;
+    width: 50vw;
+    justify-content: center;
+    align-items: center;
+}
+
+form{
+    min-width: 50vw;
+    display: flex; 
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    padding: 2rem;
+}
