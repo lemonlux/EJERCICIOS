@@ -1,50 +1,57 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+}
 body {
-    background: #eee;
-    font-family: sans-serif;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .card {
-    width: 400px;
-    background: #fff;
-    margin: 8px;
-    align-items: center;
-    justify-content: center;
-    padding: 8px;
-    padding-top: 8px;
-    text-align: center;
-  }
-  
-  .title {
-    background: #e3f4ff;
-    font-size: 16px;
-    padding: 8px;
-    text-align: center;
-  }
-  
-  .content {
-    background: #e3f4ff;
-    padding-top: 16px;
-    padding-bottom: 16px;
-    padding-left: 8px;
-    padding-right: 8px;
-    text-align: center;
-  }
-  
-  .button-container {
-    background: #e3f4ff;
-    text-align: center;
-  }
-  
-  button {
-    background: white;
-    border: 1px solid #eee;
-    padding: 8px;
-    margin: center;
-    padding-left: 24px;
-    padding-right: 24px;
-    padding-top: 8px;
-    padding-right: 8px;
-    text-align: center;
-  }
+  background: #eee;
+  font-family: sans-serif;
+  background: #fff;
+  padding: 70px;
+  align-content: center;
+  justify-content: center;
+  display: flex;
+}
+
+.card {
+  width: 400px;
+  background: #fff;
+  border: 1px solid black;
+}
+
+.title {
+  background: #e3f4ff;
+  font-size: 16px;
+  border: 1px solid black;
+  margin: 8px;
+  padding: 16px 24px;
+}
+
+.content {
+  background: #e3f4ff;
+  font-size: 16px;
+  border: 1px solid black;
+  margin: 8px;
+  padding: 16px 24px;
+}
+
+.button-container {
+  background: #e3f4ff;
+  font-size: 16px;
+  border: 1px solid black;
+  margin: 8px;
+  padding: 16px 24px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  background: white;
+  border: 1px solid #eee;
+  font-size: 16px;
+  border: 1px solid black;
+  display: block;
+  padding: 2px;
+}
