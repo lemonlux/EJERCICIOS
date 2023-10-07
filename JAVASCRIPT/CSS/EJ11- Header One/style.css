@@ -1,0 +1,49 @@
+.header  {
+    font-family: monospace;
+    background: #fa5252;
+  }
+  
+  .logo {
+    font-size: 20px;
+    font-weight: 900;
+    background-color: #82c91e;
+    padding: 10px;
+    margin: 20px;
+    border: 1px solid black;
+    
+  }
+  
+  ul {
+    /* this removes the dots on the list items*/
+    list-style-type: none;
+    display: flex;
+    flex-flow: row wrap;
+  }
+
+  a {
+    font-size: 22px;
+    background: white;
+    text-decoration: none;
+    padding: 4px 20px;
+    border: 1px solid black;
+    background-color: purple;
+    margin: 10px;
+  }
+
+  div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .right-links{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  .left-links{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
