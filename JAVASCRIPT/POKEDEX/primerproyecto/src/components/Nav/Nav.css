@@ -1,0 +1,13 @@
+nav ul{
+    list-style: none;
+    display: flex;
+    flex-wrap: row wrap;
+    font-size: 17px;
+    gap: 0.5rem;
+    margin: 1rem;
+  }
+  
+  nav ul li{
+    width: 120px;
+    text-align: center;
+  }

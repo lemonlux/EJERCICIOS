@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Gabarito&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap');
 
 :root {
   font-family: 'Gabarito', cursive, Avenir, Helvetica, Arial, sans-serif;
@@ -10,9 +11,16 @@
   box-sizing: border-box;
 }
 
+
 header{
   width: 100vw;
   height: 15vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  -webkit-box-shadow: -1px 10px 26px -1px rgba(0,0,0,0.1);
+  -moz-box-shadow: -1px 10px 26px -1px rgba(0,0,0,0.1);
+  box-shadow: -1px 10px 26px -1px rgba(0,0,0,0.1);
 
 }
 
@@ -27,4 +35,7 @@ footer{
   display: flex;
   justify-content: center;
   align-items: center;
+  -webkit-box-shadow: -1px -5px 26px -1px rgba(0,0,0,0.1);
+-moz-box-shadow: -1px -5px 26px -1px rgba(0,0,0,0.1);
+box-shadow: -1px -5px 26px -1px rgba(0,0,0,0.1);
 }

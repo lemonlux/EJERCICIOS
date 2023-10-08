@@ -1,0 +1,11 @@
+#logo{
+    height: 105px;
+}
+
+#pokedex-logo{
+    display: flex;
+    align-items: center;
+    font-family: 'Pixelify Sans', cursive;
+    font-size: 40px;
+  }
+  
