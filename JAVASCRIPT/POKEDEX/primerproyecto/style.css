@@ -15,6 +15,7 @@
 header{
   width: 100vw;
   height: 15vh;
+  background-color: #DE2A40;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -34,6 +35,8 @@ footer{
   height: 10vh;
   display: flex;
   justify-content: center;
+  color: white;
+  background-color: black;
   align-items: center;
   -webkit-box-shadow: -1px -5px 26px -1px rgba(0,0,0,0.1);
 -moz-box-shadow: -1px -5px 26px -1px rgba(0,0,0,0.1);

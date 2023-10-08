@@ -21,7 +21,7 @@ export const printTemplateGallery = () =>{
     getData() 
 }
 
-const mappeoPokemon = () =>{
+const mappeoPokemon = async () =>{
     const allPokemonMap = allPokemon.map((pokemon)=> ({
         name: pokemon.name,
         image: pokemon.sprites.other.dream_world.front_default,
