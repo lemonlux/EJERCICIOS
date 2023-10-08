@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Gabarito&display=swap');
+
+:root {
+  font-family: 'Gabarito', cursive, Avenir, Helvetica, Arial, sans-serif;
+}
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+header{
+  width: 100vw;
+  height: 15vh;
+
+}
+
+main{
+  width: 100vw;
+  min-height: 75vh;
+}
+
+footer{
+  width: 100vw;
+  height: 10vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
