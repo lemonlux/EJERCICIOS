@@ -13,14 +13,16 @@ button {
   font-size: 18px;
   padding: 16px 24px;
   text-align: center;
+  transition: ease-in-out 0.3s;
 }
 
 button:hover{
-   animation: hover 0.3s ease;
-   animation-direction: alternate;
+   /* animation: hover 0.3s ease;
+   animation-direction: alternate; */
+   transform: scale(1.2);
 }
 
-
+/* 
 @keyframes hover {
     from{
         transform:scale(1)
@@ -28,4 +30,4 @@ button:hover{
     to{
         transform:scale(1.2)
     }
-}
+} */

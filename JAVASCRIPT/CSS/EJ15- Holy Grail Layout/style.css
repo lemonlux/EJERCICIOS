@@ -7,6 +7,13 @@
 body, html {
     height: 100%;
     margin: 0;
+  }
+  
+  .container {
+    text-align: center;
+    height: 100%;
+    padding: 16px;
+    box-sizing: border-box;
     display: grid;
     grid-template-columns: 200px 1fr 200px;
     grid-template-rows: 
@@ -17,13 +24,6 @@ body, html {
     "my-header my-header my-header"
     "my-sidebar my-nav my-nav"
     "my-footer my-footer my-footer";
-  }
-  
-  .container {
-    text-align: center;
-    height: 100%;
-    padding: 16px;
-    box-sizing: border-box;
   }
   
   .container div {
