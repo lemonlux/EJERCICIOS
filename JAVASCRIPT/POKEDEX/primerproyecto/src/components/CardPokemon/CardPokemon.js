@@ -1,17 +1,27 @@
 import "./CardPokemon.css"
 
-const template = ({name, image}) =>`
+const template = (pokemon) =>`
 
-<figure class="pokemon-figures">
-    <div>
-        <img src=${image} alt=${name}/>
+<figure class="${pokemon?.typeOne}">
+    <div class="pokemon-container">
+        <img src=${pokemon?.image} alt=${pokemon?.name}/>
+        <h3>${pokemon?.name}</h3>
+        <h4>${pokemon?.typeTwo}</h4>
     </div>
-    <h3>${name}</h3>
+    
 
 </figure>
 `
 
 export const printCardPokemon = (pokemon) =>{
-    document.getElementById("galleryContainer").innerHTML += template(pokemon)
+    pokemon.name && (document.getElementById("galleryContainer").innerHTML += template(pokemon))
 }
+
+
+// const typeTwoFuction = () =>{
+//     const typeTwoClass = []
+//     pokemon?.typeTwo != undefined ? typeTwoClass.push(pokemon?.typeTwo) : null
+
+//     console.log(typeTwoFuction(typeTwoClass))
+// }
 

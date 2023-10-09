@@ -1,7 +1,7 @@
 import "./Footer.css"
 
 const template = () =>  `
-<h3>best <span>Pokemons</span> ever</h3>
+<h3 class="footer">best <span>Pokemons</span> ever</h3>
 `
 
 export const printTemplateFooter = () =>{

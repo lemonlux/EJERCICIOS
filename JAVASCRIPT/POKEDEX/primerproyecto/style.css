@@ -29,15 +29,19 @@ header{
 main{
   width: 100vw;
   min-height: 75vh;
+  background-color: black;
+  padding-bottom: 12vh;
 }
 
 footer{
+  position: fixed;
+  bottom: 0;
   width: 100vw;
   height: 10vh;
   display: flex;
   justify-content: center;
-  color: white;
-  background-color: black;
+  color: black;
+  background-color: white;
   align-items: center;
   -webkit-box-shadow: -1px -5px 26px -1px rgba(0,0,0,0.1);
 -moz-box-shadow: -1px -5px 26px -1px rgba(0,0,0,0.1);

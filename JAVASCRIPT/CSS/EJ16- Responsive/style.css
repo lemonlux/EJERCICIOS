@@ -8,6 +8,7 @@
     display: grid;
     grid-template-columns: 1fr 4fr;
     grid-template-rows: 1fr 1fr 8fr 1fr;
+    height: 100vh;
 
   }
   
@@ -23,6 +24,17 @@
     background-color: #393f4d;
     grid-column: 1/3;
     grid-row: 1/2;
+    height: 10vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: left;
+  }
+
+
+
+  .menu ul{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
   }
   
   .menu ul,
@@ -56,6 +68,7 @@
     background-color: #FF7755;
     grid-column: 2/3;
     grid-row: 2/3;
+    
   }
   
   .nav ul li {
@@ -68,6 +81,10 @@
     grid-column: 2/3;
     grid-row: 3/4;
     display: grid;
+    grid-template-columns: repeat(auto-fill, 10em);
+    grid-template-rows: repeat(auto-fill, 3em);
+    align-items: center;
+    gap: 8px;
   }
   
   .article p {
@@ -83,7 +100,7 @@
     max-height: 50px;
     color: black;
     text-align: center;
-    grid-template-columns: repeat(auto-fill, 10px);
+    overflow: scroll;
   }
   
   .card p {
@@ -106,4 +123,9 @@
   .footer p {
     font-size: 13px;
     font-weight: normal;  
+  }
+
+
+  li{
+    list-style-type: none;
   }

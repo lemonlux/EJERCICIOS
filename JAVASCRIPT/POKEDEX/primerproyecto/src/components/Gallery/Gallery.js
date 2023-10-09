@@ -13,7 +13,7 @@ const getData = async() =>{
         const jsonData= await data.json()
         allPokemon.push(jsonData)
     }
-
+console.log(allPokemon)
     mappeoPokemon(allPokemon)
 }
 
@@ -26,10 +26,15 @@ export const printTemplateGallery = () =>{
 const mappeoPokemon = (data) =>{
     const allPokemonMap = data.map((pokemon)=> ({
         name: pokemon.name,
-        image: pokemon.sprites?.other?.dream_world?.front_default,
+        image: pokemon.sprites?.front_default,
+        backImage: pokemon.sprites?.back_default,
+        typeOne: pokemon.types[0]?.type?.name,
+        typeTwo: (pokemon.types[1]?.type?.name != undefined ? pokemon.types[1]?.type?.name : ""),
+        // typeTwo: (pokemon.types[1]?.type?.name != undefined)
 
     }))
     printFigure(allPokemonMap)
+    console.log(allPokemonMap)
 }
 
 const printFigure = (data) =>{
