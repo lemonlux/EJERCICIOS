@@ -1,6 +1,7 @@
 import { printTemplateFooter } from "../components/Footer/Footer"
 import { printTemplateHeader } from "../components/Header/Header"
 import { printTemplateGallery } from "../components/Gallery/Gallery";
+import { printCardPokemon } from "../components/CardPokemon/CardPokemon";
 
 export const  initTemplate = () =>{
     const app = document.getElementById("app")
@@ -11,4 +12,5 @@ export const  initTemplate = () =>{
     printTemplateFooter()
     printTemplateHeader()
     printTemplateGallery()
+    printCardPokemon()
 }

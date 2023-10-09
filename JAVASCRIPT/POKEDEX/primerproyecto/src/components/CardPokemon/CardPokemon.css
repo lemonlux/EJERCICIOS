@@ -1,0 +1,26 @@
+figure div{
+    width: 250px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pokemon-figures{
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+
+}
+figure{
+    width: 260px;
+    height: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column wrap;
+}
+
+figure div img{
+    height: 150px;
+}

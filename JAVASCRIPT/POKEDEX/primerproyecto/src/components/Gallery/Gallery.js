@@ -1,3 +1,4 @@
+import { printCardPokemon } from "../CardPokemon/CardPokemon"
 import "./Gallery.css"
 
 const template = () => `
@@ -12,8 +13,9 @@ const getData = async() =>{
         const jsonData= await data.json()
         allPokemon.push(jsonData)
     }
+
+    mappeoPokemon(allPokemon)
 }
-console.log(allPokemon)
 
 
 export const printTemplateGallery = () =>{
@@ -21,14 +23,15 @@ export const printTemplateGallery = () =>{
     getData() 
 }
 
-const mappeoPokemon = async () =>{
-    const allPokemonMap = allPokemon.map((pokemon)=> ({
+const mappeoPokemon = (data) =>{
+    const allPokemonMap = data.map((pokemon)=> ({
         name: pokemon.name,
-        image: pokemon.sprites.other.dream_world.front_default,
+        image: pokemon.sprites?.other?.dream_world?.front_default,
 
     }))
-    console.log(allPokemonMap)
+    printFigure(allPokemonMap)
 }
 
-
-mappeoPokemon()
+const printFigure = (data) =>{
+    data.map(item => printCardPokemon(item))
+}

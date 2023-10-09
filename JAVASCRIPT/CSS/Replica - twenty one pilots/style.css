@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
+ @import url('https://fonts.googleapis.com/css2?family=Autour+One&family=Open+Sans:wght@300;400;500;600;700&display=swap');
+
 
 *{
     margin: 0;
@@ -23,7 +24,7 @@ font-weight: 600;
 
 .header img{
    width: 100vw;
-   max-height: 7vh;
+   max-height: 8vh;
     position: absolute;
     opacity: 0.5;
 }
@@ -73,7 +74,37 @@ a{
     width: 100vw;
     height: 87vw;
     background-color: #F37BAB;
+}
 
+.first-section{
+    background-image: url('https://res.cloudinary.com/daxddugwt/image/upload/v1696785222/BGImageDesktop2_cfeqsy.jpg');
+    background-size: cover;
+    height: 720px;
+}
+
+
+.box-container{
+    padding-top: 120px;
+    margin-right: 15 rem;
+    margin-left: 80px;
+}
+.black-box{
+    background-color: black;
+   padding: 2rem 1rem 1rem 4rem;
+    width: 340px;
+    height: 340px;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    
+}
+.band-name{
+    font-family: 'Autour One', cursive;
+    font-size: 45px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 4 rem 4 rem;
 }
 
 

@@ -13,6 +13,7 @@
 
 
 header{
+  position: fixed;
   width: 100vw;
   height: 15vh;
   background-color: #DE2A40;
