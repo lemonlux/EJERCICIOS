@@ -13,7 +13,7 @@
   margin: auto;
   display: flex;
   flex-wrap: wrap;
-  padding-top: 10vh;
+  padding: 10vh 0 0 0;
 }
 
 .card{ 
