@@ -33,10 +33,17 @@ document.querySelector('body').prepend(newDivContainer)
 const divGenerator = () =>{
     for (i=1; i<7; i++){
         const divs = document.createElement('div')
-        const textoDivs = document.createTextNode(`este es el div numero ${i}`)
+        const textoDivs = document.createTextNode(`este es el div número ${i}`)
         divs.append(textoDivs)
         document.querySelector('body').append(divs)
     }
 }
 
 divGenerator()
+
+
+
+//2.4
+
+
+
