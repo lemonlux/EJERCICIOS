@@ -37,9 +37,9 @@ const dataFunction = document.querySelectorAll("span [data-function='testMe']")
 
 console.log(dataFunction)
 
-//!1.6
+//?1.6
 
-const dataFunctionAgain = document.querySelectorAll("body (span [data-function='testMe']:nth-child(3))")
+const dataFunctionAgain = document.querySelectorAll("span:nth-of-type(3)")
 
 console.log(dataFunctionAgain)
 
