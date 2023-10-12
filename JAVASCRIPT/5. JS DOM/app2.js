@@ -2,6 +2,7 @@
 
 //2.1
 
+
 const newDiv = document.createElement('div')
 
 let texto = document.createTextNode('hola que tal estás')
@@ -62,6 +63,7 @@ document.querySelector(".fn-insert-here").append(textWubba)
 //2.6
 
 
+
 const apps = ['Facebook', 'Netflix', 'Instagram', 'Snapchat', 'Twitter']
 
 const printApps = () =>{
@@ -80,11 +82,14 @@ printApps()
 
 //!2.7
 
-const parent = document.querySelector('body')
 
-const child = document.querySelectorAll('h2')
+// const removeMe = document.getElementsByClassName('fn-remove-me')
+// const removeMeAgain = document.querySelector('.fn-remove-me')
 
-// parent.remove(child)
+// removeMe.remove()
+
+// removeMeAgain.remove()
+
 
 
 
@@ -95,17 +100,27 @@ const enMedio = document.createTextNode('voy en medio!')
 document.querySelector('div:nth-of-type(2)').append(enMedio)
 
 
-//!2.9
+//?2.9
 
 
-const allInsert = () => {
-    const voyDentro = document.createTextNode('voy dentroooooooooooo')
-    const allSelector = document.querySelectorAll('.fn-insert-here')
-for (element in allSelector){
-    document.querySelector('.fn-insert-here').append(voyDentro)
-}
+    let voyDentro = document.createTextNode('voy dentroooooooooooo')
+    let allSelector = document.querySelectorAll('.fn-insert-here')
 
-}
+allSelector.forEach((div, index) =>{
+    let newP = document.createElement('p')
+    newP.textContent = "voy dentrooooooooooooooooo"
+    div.append(newP)
+})
 
-allInsert()
+
+//--------
+
+
+// let getDiv = document.querySelectorAll('.fn-insert-here');
+// getDiv.forEach((item, index) => {
+// let nuevoTexto = document.createElement('p');
+// nuevoTexto.textContent = 'Voy dentro!';
+// item.appendChild(nuevoTexto);
+// })
+
 
