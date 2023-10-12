@@ -80,7 +80,18 @@ const printApps = () =>{
 printApps()
 
 
-//!2.7
+//!2.7        ------------ no me va con className ni querySelector
+
+const removeId = document.getElementById('fn-remove-me')
+
+removeId.remove()
+
+// const removeMe = document.getElementsByClassName('fn-remove-me')
+
+// removeMe.remove()
+
+
+
 
 
 // const removeMe = document.getElementsByClassName('fn-remove-me')
