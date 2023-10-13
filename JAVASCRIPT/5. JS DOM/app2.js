@@ -46,7 +46,6 @@ divGenerator()
 
 //2.4
 
-const pDinamico = document.createElement('p')
 
 let textoDinamico = document.createTextNode(`soy dinámico!`)
 
