@@ -4,61 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
     <title>Memory Game</title>
 </head>
 <body>
-    <script src="app.js"></script>
-
+<main>
     <div class="game-container">
-       
-        <div class="card">
+        <div class="start-container">
+            <button class="start-button">START GAME!</button>
+            <div class="analytics">
+                <h2>Errors:<span id="errors">0</span></h2>
+            </div>
+        </div>
+    <div class="playable">
+        <div class="card" id="grass">
             <img class="front" src="https://64.media.tumblr.com/5b7fb6cc78d59454c902ca9c1ba3bb82/e07fe79a304c0ac7-19/s1280x1920/415af5760c0e81f4040a52a2bb628f47dac8abf1.pnj" alt="">
             <img class="back" src="https://64.media.tumblr.com/7bca73115d678ddf512e86ccf42f32f4/ffe8cd3fb9af5ed1-40/s1280x1920/83ab0fd1e0fd039129565530ef065af4032abdc3.jpg" alt="card back">
         </div>
-        <div class="card">
+        <div class="card" id="grass">
             <img class="front" src="https://64.media.tumblr.com/5b7fb6cc78d59454c902ca9c1ba3bb82/e07fe79a304c0ac7-19/s1280x1920/415af5760c0e81f4040a52a2bb628f47dac8abf1.pnj" alt="">
             <img class="back" src="https://64.media.tumblr.com/7bca73115d678ddf512e86ccf42f32f4/ffe8cd3fb9af5ed1-40/s1280x1920/83ab0fd1e0fd039129565530ef065af4032abdc3.jpg" alt="card back">
         </div>
-        <div class="card">
+        <div class="card" id="water">
             <img class="front" src="https://64.media.tumblr.com/31cd4ba6466b3e4b80f1ca273e32fecf/1990ec8550228d2b-eb/s2048x3072/6e38f006323b6a56abfd847696e83f25f77dc3d3.pnj" alt="">
             <img class="back" src="https://64.media.tumblr.com/7bca73115d678ddf512e86ccf42f32f4/ffe8cd3fb9af5ed1-40/s1280x1920/83ab0fd1e0fd039129565530ef065af4032abdc3.jpg" alt="card back">
         </div>
-        <div class="card">
+        <div class="card" id="water">
             <img class="front" src="https://64.media.tumblr.com/31cd4ba6466b3e4b80f1ca273e32fecf/1990ec8550228d2b-eb/s2048x3072/6e38f006323b6a56abfd847696e83f25f77dc3d3.pnj" alt="">
             <img class="back" src="https://64.media.tumblr.com/7bca73115d678ddf512e86ccf42f32f4/ffe8cd3fb9af5ed1-40/s1280x1920/83ab0fd1e0fd039129565530ef065af4032abdc3.jpg" alt="card back">
         </div>
-        <div class="card">
+        <div class="card" id="fairy">
             <img class="front" src="https://64.media.tumblr.com/d286586c39fb32fd644fd30e6a8c5ff0/47cf2ab191db2e9a-4d/s1280x1920/7f46f133d83e7b05c6521ca00ea6f2c5c40b80a3.pnj" alt="">
             <img class="back" src="https://64.media.tumblr.com/7bca73115d678ddf512e86ccf42f32f4/ffe8cd3fb9af5ed1-40/s1280x1920/83ab0fd1e0fd039129565530ef065af4032abdc3.jpg" alt="card back">
         </div>
-        <div class="card">
+        <div class="card" id="fairy">
             <img class="front" src="https://64.media.tumblr.com/d286586c39fb32fd644fd30e6a8c5ff0/47cf2ab191db2e9a-4d/s1280x1920/7f46f133d83e7b05c6521ca00ea6f2c5c40b80a3.pnj" alt="">
             <img class="back" src="https://64.media.tumblr.com/7bca73115d678ddf512e86ccf42f32f4/ffe8cd3fb9af5ed1-40/s1280x1920/83ab0fd1e0fd039129565530ef065af4032abdc3.jpg" alt="card back">
         </div>
-        <div class="card">
+        <div class="card" id="electric">
             <img class="front" src="https://64.media.tumblr.com/af373364864baa8f4d767df1f19809db/396d35716d0a18b5-a2/s1280x1920/e0359a745ac020526fa3ade6be75f57ee760b001.pnj" alt="">
             <img class="back" src="https://64.media.tumblr.com/7bca73115d678ddf512e86ccf42f32f4/ffe8cd3fb9af5ed1-40/s1280x1920/83ab0fd1e0fd039129565530ef065af4032abdc3.jpg" alt="card back">
         </div>
-        <div class="card">
+        <div class="card" id="electric">
             <img class="front" src="https://64.media.tumblr.com/af373364864baa8f4d767df1f19809db/396d35716d0a18b5-a2/s1280x1920/e0359a745ac020526fa3ade6be75f57ee760b001.pnj" alt="">
             <img class="back" src="https://64.media.tumblr.com/7bca73115d678ddf512e86ccf42f32f4/ffe8cd3fb9af5ed1-40/s1280x1920/83ab0fd1e0fd039129565530ef065af4032abdc3.jpg" alt="card back">
         </div>
-        <div class="card">
+        <div class="card" id="dragon">
             <img class="front" src="https://64.media.tumblr.com/44c602c392156726eba45aff1e76055d/68bd74ff7fdb1ec1-7f/s1280x1920/dfff1c1068fd979d094b0a842b24bc64edd6412b.pnj" alt="front card">
             <img class="back" src="https://64.media.tumblr.com/7bca73115d678ddf512e86ccf42f32f4/ffe8cd3fb9af5ed1-40/s1280x1920/83ab0fd1e0fd039129565530ef065af4032abdc3.jpg" alt="card back">
         </div>
-        <div class="card">
+        <div class="card" id="dragon">
             <img class="front" src="https://64.media.tumblr.com/44c602c392156726eba45aff1e76055d/68bd74ff7fdb1ec1-7f/s1280x1920/dfff1c1068fd979d094b0a842b24bc64edd6412b.pnj" alt="front card">
             <img class="back" src="https://64.media.tumblr.com/7bca73115d678ddf512e86ccf42f32f4/ffe8cd3fb9af5ed1-40/s1280x1920/83ab0fd1e0fd039129565530ef065af4032abdc3.jpg" alt="card back">
         </div>
-        <div class="card">
+        <div class="card" id="psychic">
             <img class="front" src="https://64.media.tumblr.com/d55399a9f1e26010dd3ccbbfb2fc7fdd/1e4db40830176d14-ac/s1280x1920/17ccc125a66cf33521f21707517ebc90e281f1f9.pnj" alt="front card">
             <img class="back" src="https://64.media.tumblr.com/7bca73115d678ddf512e86ccf42f32f4/ffe8cd3fb9af5ed1-40/s1280x1920/83ab0fd1e0fd039129565530ef065af4032abdc3.jpg" alt="card back">
         </div>
-        <div class="card">
+        <div class="card" id="psychic">
             <img class="front" src="https://64.media.tumblr.com/d55399a9f1e26010dd3ccbbfb2fc7fdd/1e4db40830176d14-ac/s1280x1920/17ccc125a66cf33521f21707517ebc90e281f1f9.pnj" alt="front card">
             <img class="back" src="https://64.media.tumblr.com/7bca73115d678ddf512e86ccf42f32f4/ffe8cd3fb9af5ed1-40/s1280x1920/83ab0fd1e0fd039129565530ef065af4032abdc3.jpg" alt="card back">
         </div>
     </div>
+</div>
+</main>
 </body>
 </html>
