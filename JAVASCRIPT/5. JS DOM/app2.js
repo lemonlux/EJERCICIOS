@@ -91,8 +91,6 @@ removeId.remove()
 
 
 
-
-
 // const removeMe = document.getElementsByClassName('fn-remove-me')
 // const removeMeAgain = document.querySelector('.fn-remove-me')
 
