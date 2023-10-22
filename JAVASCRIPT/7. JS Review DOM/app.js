@@ -66,6 +66,7 @@ const countriesArray = [
 const printCountriesArray = () =>{
    const mapeoCountries = countriesArray.map((country) =>{
         const div = document.createElement('div')
+        div.classList = "img-div"
         const h4 = document.createElement('h4')
         const img = document.createElement('img')
         img.setAttribute("src", `${country.imgUrl}`)
@@ -93,33 +94,23 @@ deleteButton.addEventListener("click", e =>{
 document.querySelector("div:last-of-type").append(deleteButton)
 
 
-//!1.6
+//1.6
 
-// const deleteManyButtons = () =>{
-// document.querySelectorAll('div').forEach(div =>{
-//     console.log(div)
-//     const button = document.createElement('button')
-//     button.textContent = "boton para todos"
-//     button.addEventListener("click", e =>{
-//         div.remove()
-//     })
-//     document.div.append(button)
-// })
+const deleteImages = () =>{
+const imageDivs = document.querySelectorAll(".img-div")
+imageDivs.forEach(div =>{
+    const buttons = document.createElement("button")
+    buttons.textContent = "elimino esta imagen"
+    console.log(div)
+    buttons.addEventListener("click", e =>{
+        div.remove()
+    })
+    div.append(buttons)
 
-// }
+})
 
-// deleteManyButtons()
-
-
-const deleteManyButtonsTwo =  () =>{
-    const divs = document.querySelectorAll('div')
-    for (div of divs){
-    const button = document.createElement('button')
-    button.textContent = "boton para todos"
-    for (i=1; i<6; i++){
-        document.querySelector(`div:nth-of-type(${i})`).append(button)
-        button.addEventListener("click", e =>{
-        })
 }
-}}
-deleteManyButtonsTwo()
+
+deleteImages()
+
+

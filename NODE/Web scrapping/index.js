@@ -48,7 +48,7 @@ const scrapping = async () =>{
         })
     })
 
-    // casaDelLibroProducts.pop()
+    //  casaDelLibroProducts.pop()
     console.log(casaDelLibroProducts)
 
     await browser.close()
