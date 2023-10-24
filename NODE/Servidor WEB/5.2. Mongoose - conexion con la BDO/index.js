@@ -18,9 +18,9 @@ const PORT = process.env.PORT
 
 const app = express()
 
-app.listen(PORT, () =>{
-    console.log(`Server listening on port http://localhost:${PORT}`)
-})
+// app.listen(PORT, () =>{
+//     console.log(`Server listening on port http://localhost:${PORT}`)
+// })
 
 // configuramos cloudinary
 
@@ -47,7 +47,14 @@ app.use((error, req, res) => {
       .json(error.message || "unexpected error");
   });
 
-  app.disable("x-powered-by")
-  app.listen(PORT, () =>{
-    console.log(`Server listening on port http://localhost:${PORT} 💻📍`)
-  })
+  app.disable("x-powered-by");
+  app.listen(PORT, () =>
+    console.log(`Server listening on port 👌🔍 http://localhost:${PORT}`)
+  );
+  
+
+
+
+//   app.listen(8080, () =>{
+//     console.log("listening on port 8080")
+//   })
