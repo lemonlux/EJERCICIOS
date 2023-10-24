@@ -21,3 +21,13 @@ const app = express()
 app.listen(PORT, () =>{
     console.log(`Server listening on port http://localhost:${PORT}`)
 })
+
+// configuramos cloudinary
+
+const { configCloudinary } = require("./src/middleware/files.middleware")
+configCloudinary()
+
+//  añadimos limitaciones de cantidad
+
+app.use(express.json({limit: "5mb"}))
+app.use(express.urlencoded({limit: "5mb", extended: false}))
