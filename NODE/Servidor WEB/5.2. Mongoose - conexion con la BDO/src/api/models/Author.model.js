@@ -19,6 +19,10 @@ const AuthorSchema = new Schema(
             type: Number,
             required: false
         },
+        image: {
+            type: String,
+            required: false,
+          },
         books: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: "Book",

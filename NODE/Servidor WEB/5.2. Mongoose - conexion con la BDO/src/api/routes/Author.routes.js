@@ -1,5 +1,5 @@
 const { upload } = require("../../middleware/files.middleware")
-const { create } = require("../controllers/Athor.controllers")
+const { create } = require("../controllers/Author.controllers")
 
 const AuthorRoutes = require("express").Router()
 

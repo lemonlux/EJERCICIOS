@@ -12,7 +12,7 @@
                 newAuthor.image = catchImg
 
             } else {
-                newAuthor.img="https://res.cloudinary.com/daxddugwt/image/upload/v1698162119/5770f01a32c3c53e90ecda61483ccb08_xabcjt.jpg"
+                newAuthor.image = "https://res.cloudinary.com/daxddugwt/image/upload/v1698162119/5770f01a32c3c53e90ecda61483ccb08_xabcjt.jpg"
             }
         
             const saveAuthor = await newAuthor.save()
@@ -26,12 +26,13 @@
 
         } catch (error) {
             req.file?.path && deleteImgCloudinary(catchImg)
-            next(error)
-            return res.status(404).json({
-                message: "error",
+            next(error);
+            return (
+              res.status(404).json({
+                message: "error en el creado del elemento",
                 error: error,
-            })
-            
+              }) && next(error)
+            );
         }
     }
 
