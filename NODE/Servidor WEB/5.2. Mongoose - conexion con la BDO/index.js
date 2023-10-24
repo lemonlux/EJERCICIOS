@@ -6,6 +6,7 @@ dotenv.config()
 
 //      traemos la conexion de la db -- ejecutamos la funcion
 
+    const { connect } = require("./src/utils/db")
 
 //--2. variables constantes ---> PORT --- luego a .env
 
