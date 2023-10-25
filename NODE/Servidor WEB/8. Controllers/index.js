@@ -4,10 +4,12 @@ const express = require ("express")
 const dotenv = require("dotenv")
 dotenv.config()
 
-//!------ traer la conexion de la db y ejecutar la funcion 
-//--esto luego, pero va aquí
+//!--14---- traer la conexion de la db y ejecutar la funcion --- 
+//--esto luego de crear el db.js, pero va aquí
 
-
+const connect = require("./src/utils/db")
+connect()
+ 
 
 //!--2---- CONEXION CON CLOUDINARY
 //traemos primero el files.middleware.js a middleware y cambiamos el nombre del proyecto y los
@@ -48,3 +50,15 @@ app.use("*", (req,res,next)=>{
 app.use((error,req,res)=>{
     return res.status(error.status || 500).json(error.message || "unexpected error")
 })
+
+
+//!--7---- PRUEBO SI SE ESCUCHA EL SERVIDOR
+//luego comento la escucha
+
+app.disable("x-powered-by")
+// app.listen(PORT, () =>
+//   console.log(`Server listening on port http://localhost:${PORT}`)
+// );
+
+
+//!--8--- ahora creamos un archivo db.js en utils
