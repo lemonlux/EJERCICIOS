@@ -54,13 +54,20 @@ app.use((error,req,res)=>{
 })
 
 
-//!--7---- PRUEBO SI SE ESCUCHA EL SERVIDOR
-//luego comento la escucha
-
-app.disable("x-powered-by")
-// app.listen(PORT, () =>
-//   console.log(`Server listening on port http://localhost:${PORT}`)
-// );
-
-
+//!--7---- PRUEBO SI SE ESCUCHA EL SERVIDOR -- luego comento la escucha
+// app.disable("x-powered-by")
+// app.listen(PORT, () => console.log(`Server listening on port http://localhost:${PORT}`));
 //!--8--- ahora creamos un archivo db.js en utils
+
+
+
+//!--29--- IMPORTAMOS LAS RUTAS Y ESTABLECEMOS LA RUTA DE LA URL
+
+const AuthorRoutes = require("./src/api/routes/Author.rutes")
+app.use("/api/v1/authors/", AuthorRoutes)
+
+
+//!---30--- ESCUCHAMOS EL PUERTO DEL SERVIDOR WEB
+app.disable("x-powered-by")
+app.listen(PORT, () => console.log(`💻 Server listening on port 📍 http://localhost:${PORT}`));
+

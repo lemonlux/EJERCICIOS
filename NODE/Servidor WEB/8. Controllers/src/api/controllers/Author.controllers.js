@@ -36,3 +36,12 @@ const create = async (req, res, next) =>{
 
 }
 }
+
+
+
+
+
+//!---24----- EXPORTAMOS LA FUNCION ENTRE {} (VA A HABER MAS) Y LA IMPORTAMOS EN RUTAS
+module.exports = {
+    create
+}
