@@ -9,6 +9,8 @@ dotenv.config()
 
 const connect = require("./src/utils/db")
 connect()
+
+//!--- despues de esto creamos las carpetas controllers, models y routes, y empezamos por models
  
 
 //!--2---- CONEXION CON CLOUDINARY
