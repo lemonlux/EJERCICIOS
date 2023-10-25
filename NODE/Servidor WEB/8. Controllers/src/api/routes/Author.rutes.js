@@ -1,6 +1,7 @@
 //!----25----- REQUERIMOS UPLOAD DEL MIDDLEWARE Y LAS FUNCIONES DE LOS CONTROLADORES
 const { upload } = require("../../middleware/files.middleware")
-const { create } = require("../controllers/Author.controllers")
+const { create, getById, getAll, getByName, deleteAuthor } = require("../controllers/Author.controllers")
+const Author = require("../models/Author.model")
 
 // en medio de la ruta y de la funcion que es el controlador que se llama create
 //  esta el middleware de subida de ficheros a cloudinary----> upload
@@ -18,7 +19,10 @@ const AuthorRoutes = require("express").Router()
 
 
 AuthorRoutes.post("/", upload.single("image"), create)
-
+AuthorRoutes.get("/:id", getById)
+AuthorRoutes.get("/", getAll)
+AuthorRoutes.get("/byName/:name", getByName)
+AuthorRoutes.delete("/:id", deleteAuthor)
 
 //!--28---- EXPORTAMOS LA FUNCION y la llevamos al index, debajo de las limitaciones del json
 

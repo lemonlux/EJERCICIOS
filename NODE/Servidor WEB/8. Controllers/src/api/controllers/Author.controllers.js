@@ -37,11 +37,99 @@ const create = async (req, res, next) =>{
 }
 }
 
+//?------------------------------------------
+//!--31--------------- READ ------------------
+//?------------------------------------------
 
+//* ---------------------- get by id ---------------------------
+
+const getById = async (req,res,next)=>{
+    try {
+        const { id } = req.params
+        const authorById = await Author.findById(id)
+
+        if (authorById) {
+            return res.status(200).json(authorById)
+        
+        } else {
+            return res.status(404).json("no se ha encontrado este autor")
+            
+        }
+    } catch (error) {
+        return res.status(404).json("error en busqueda por id", error)
+    }
+}
+
+//* ------------------------- get all ---------------------------
+
+const getAll = async (req, res, next)=>{
+    try {
+        const allAuthors = await Author.find()
+        //el find nos devuelve un array
+        if (allAuthors.length > 0) {
+            return res.status(200).json(allAuthors)
+        } else {
+            return res.status(404).json("no se han encontrado autores")
+        }
+    } catch (error) {
+        return res.status(404).json("error en busqueda de getAll", error)
+    }
+}
+
+//* ------------------------- get by name ---------------------------
+
+const getByName = async(req, res, next) =>{
+    try {
+        const { name } = req.params
+        // console.log(name)
+        const authorsByName = await Author.find({name})
+        console.log(authorsByName)
+        // en el find({name}) el name coincide en clave y valor y por eso solo ponemos name, y no name[name]
+        // nos devuelve un array
+        if (authorsByName.length > 0) {
+            return res.status(200).json(authorsByName)
+        } else {
+            return res.status(404).json("no se ha encontrado a este autor por nombre")
+            
+        }
+    } catch (error) {
+        return res.status(404).json("error en la busqueda por nombre", error)
+    }
+}
+
+
+
+
+//* ------------------------- delete ---------------------------
+
+
+const deleteAuthor = async (req, res,next)=>{
+    try {
+
+    const { id } = req.params
+    const author = await Author.findByIdAndRemove(id)
+        if (author) {
+            //lo ha borrado, pero ahora vamos a hacer el TESTING--- EXISTE?
+            const findByIdAuthor = await Author.findById(id)
+        // si existe... ERROR
+            return res.status(findByIdAuthor ? 404 : 202).json({
+                deleteTest: findByIdAuthor ? false : true
+            })
+        } else {
+            return res.status(404).json("este autor no existe")
+        }
+    } catch (error) {
+        return res.status(404).json("error en el borrado", error)
+    }
+}
 
 
 
 //!---24----- EXPORTAMOS LA FUNCION ENTRE {} (VA A HABER MAS) Y LA IMPORTAMOS EN RUTAS
 module.exports = {
-    create
+    create,
+    getById,
+    getAll,
+    getByName,
+    deleteAuthor
 }

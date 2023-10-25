@@ -5,7 +5,7 @@ const dotenv = require("dotenv")
 dotenv.config()
 
 //!--14---- traer la conexion de la db y ejecutar la funcion --- 
-//--esto luego de crear el db.js, pero va aquí
+//--esto luego de crear el db.js, pero va aquí.
 
 const connect = require("./src/utils/db")
 connect()
@@ -39,6 +39,12 @@ app.use(cors())
 app.use(express.json({limit: "5mb"}))
 app.use(express.urlencoded({limit: "5mb", extended:false}))
 
+//!--29--- IMPORTAMOS LAS RUTAS Y ESTABLECEMOS LA RUTA DE LA URL
+//todo--------- LAS RUTAS HAN DE IR ANTES DE LOS ERRORES DE RUTA
+
+const AuthorRoutes = require("./src/api/routes/Author.rutes")
+app.use("/api/v1/authors/", AuthorRoutes)
+
 
 //!--6---- GENERAMOS LOS ERRORES DE RUTA INCORRECTA Y CRASH DEL SERVIDOR
 
@@ -61,10 +67,7 @@ app.use((error,req,res)=>{
 
 
 
-//!--29--- IMPORTAMOS LAS RUTAS Y ESTABLECEMOS LA RUTA DE LA URL
 
-const AuthorRoutes = require("./src/api/routes/Author.rutes")
-app.use("/api/v1/authors/", AuthorRoutes)
 
 
 //!---30--- ESCUCHAMOS EL PUERTO DEL SERVIDOR WEB
