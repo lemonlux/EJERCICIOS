@@ -35,7 +35,10 @@ const create = async (req, res, next) => {
     // si hay un error, hay que borrar la imagen en el cloudinary
     req.file?.path && deleteImgCloudinary(catchImg);
     next(error); // pasa el error al siguiente controlador o middleware
-    return res.status(404).json("error en el creado del elemento", error);
+    return res.status(404).json({
+        error: "no se ha podido crear el elemento",
+        message: error.message
+    });
   }
 };
 
@@ -56,7 +59,10 @@ const getById = async (req, res, next) => {
       return res.status(404).json("no se ha encontrado este autor");
     }
   } catch (error) {
-    return res.status(404).json("error en busqueda por id", error);
+    return res.status(404).json({
+        error: "error en la busqueda por id",
+        message: error.message
+    });
   }
 };
 
@@ -72,7 +78,10 @@ const getAll = async (req, res, next) => {
       return res.status(404).json("no se han encontrado autores");
     }
   } catch (error) {
-    return res.status(404).json("error en busqueda de getAll", error);
+    return res.status(404).json({
+        error: "error en el catch del get all",
+        message: error.message
+    });
   }
 };
 
@@ -91,10 +100,13 @@ const getByName = async (req, res, next) => {
     } else {
       return res
         .status(404)
-        .json("no se ha encontrado a este autor por nombre");
+        .json("no se ha encontrado a este autor por nombre")
     }
   } catch (error) {
-    return res.status(404).json("error en la busqueda por nombre", error);
+    return res.status(404).json({
+        error: "error en la busqueda por nombre",
+        message: error.message
+    });
   }
 };
 
@@ -104,11 +116,13 @@ const getByName = async (req, res, next) => {
 
 const update = async (req, res, next) => {
   await Author.syncIndexes();
+        //siempre sincronizamos indices
   let catchImg = req.file?.path;
   try {
     //igual que en get by id porque queremos apuntar al objeto
-    const { id } = req.params;
+    const { id } = req.params;              //hacemos la const del id y lo buscamos con findById
     const authorById = await Author.findById(id);
+    //si ese autor existiese
     if (authorById) {
       //guardamos la imagen antigua
       const oldImg = authorById.image;
@@ -131,7 +145,7 @@ const update = async (req, res, next) => {
         const elementUpdate = Object.keys(req.body);
 
         let test = {};
-
+//si el elemento existe
         elementUpdate.forEach((item) => {
           if (req.body[item] === authorByIdUpdate[item]) {
             test[item] = true;
@@ -139,7 +153,7 @@ const update = async (req, res, next) => {
             test[item] = false;
           }
         });
-
+//si la imagen existe, añade al objeto del test
         if (catchImg) {
           authorByIdUpdate.image === catchImg
             ? (test = { ...test, file: true })
@@ -148,17 +162,33 @@ const update = async (req, res, next) => {
 // si hay un false en algunos de esos test vamos a localizar el error
 
         let acc = 0
-
         for(clave in test){
-            test[clave]
+            test[clave] == false && acc ++
+        }
+        if(acc>0){
+            return res.status(404).json({               //! por que le ponemos dataTest?
+                dataTest: test,
+                update: false
+            })
+        }else{
+            return res.status(200).json({
+                dataTest: test,
+                update: true
+            })
         }
 
-
-
-      } catch (error) {}
+      } catch (error) {
+        res.status(404).json({
+            error: "no se ha encontrado el character",
+            message: error.message
+        })
+      }
     }
   } catch (error) {
-    res.status(404).json("error en el update", error);
+    res.status(404).json({
+        error: "error en el update",
+        message: error.message
+    })
   }
 };
 
@@ -181,7 +211,10 @@ const deleteAuthor = async (req, res, next) => {
       return res.status(404).json("este autor no existe");
     }
   } catch (error) {
-    return res.status(404).json("error en el borrado", error);
+    return res.status(404).json({
+        error: "no se ha podido borrar",
+        message: error.message
+    });
   }
 };
 
