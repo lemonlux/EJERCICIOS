@@ -45,6 +45,9 @@ app.use(express.urlencoded({limit: "5mb", extended:false}))
 const AuthorRoutes = require("./src/api/routes/Author.rutes")
 app.use("/api/v1/authors/", AuthorRoutes)
 
+const BookRoutes = require("./src/api/routes/Book.rutes")
+app.use("/api/v1/books/", BookRoutes)
+
 
 //!--6---- GENERAMOS LOS ERRORES DE RUTA INCORRECTA Y CRASH DEL SERVIDOR
 
