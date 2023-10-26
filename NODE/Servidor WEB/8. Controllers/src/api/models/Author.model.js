@@ -17,7 +17,7 @@ const AuthorSchema = new Schema(
             required: false,
             enum: ["hombre", "mujer", "no binario"]
         },
-        age: {
+        yearBorn: {
             type: Number,
             required: false,
 
