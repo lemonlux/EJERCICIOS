@@ -6,7 +6,7 @@ const Book = require("../models/Book.model")
 
 const createBook = async (req,res,next)=>{
 try {
-    await Author.syncIndexes()
+    await Book.syncIndexes()
      console.log(req.body)
     const newBook = new Book(req.body)  //nuevo modelo -- nueva instancia
     const savedBook = await newBook.save()
@@ -21,6 +21,57 @@ try {
 }
 
 }
+
+
+//!------------------ READ ------------------
+
+//* ---------------------- get by id ---------------------------
+
+const getBookById = async (req, res, next)=>{
+    try {
+        const { id } = req.params
+        const bookById = await Book.findById(id)
+        if (bookById){
+            return res.status(200).json(bookById)
+        }else{
+            return res.status(404).json("no se ha encontrado este libro por id")
+        }
+
+    } catch (error) {
+        return res.status(404).json({
+            error: "error en el catch de get by id",
+            message: error.message
+        })
+    }
+}
+
+
+//* ---------------------- get all ---------------------------
+
+const getAllBooks = async (req,res,next)=>{
+    try {
+        const allBooks = await Book.find()
+        if(allBooks.length>0){
+            return res.status(200).json(allBooks)
+        }else{
+            return res.status(404).json("no se han encontrado libros")
+        }
+    } catch (error) {
+        return res.status(404).json({
+            error: "error en el catch del get all",
+            message: error.message
+        })
+    }
+}
+
+
+
+
+
+
+
+
+
 
 
 //!---------- PATCH ----------
@@ -95,4 +146,4 @@ Promise.all(
 
 
 
-module.exports = { createBook, toggleAuthors }
+module.exports = { createBook, toggleAuthors, getBookById, getAllBooks }

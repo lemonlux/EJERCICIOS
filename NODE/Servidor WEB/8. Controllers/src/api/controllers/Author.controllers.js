@@ -225,4 +225,5 @@ module.exports = {
   getAll,
   getByName,
   deleteAuthor,
+  update,
 };
