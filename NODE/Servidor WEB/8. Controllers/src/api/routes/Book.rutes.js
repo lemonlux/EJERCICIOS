@@ -1,14 +1,19 @@
+const {
+  createBook,
+  toggleAuthors,
+  getBookById,
+  getAllBooks,
+  getBookByName,
+  updateBooks,
+} = require("./../controllers/Book.controllers");
 
-const { createBook, toggleAuthors, getBookById, getAllBooks } = require("./../controllers/Book.controllers")
+const BookRoutes = require("express").Router();
 
+BookRoutes.post("/", createBook);
+BookRoutes.get("/:id", getBookById);
+BookRoutes.get("/", getAllBooks);
+BookRoutes.get("/byName/:name", getBookByName);
+BookRoutes.patch("/add/:id", toggleAuthors);
+BookRoutes.patch("/update/:id", updateBooks)
 
-const BookRoutes = require("express").Router()
-
-BookRoutes.post("/", createBook)
-BookRoutes.get("/:id", getBookById)
-BookRoutes.get("/", getAllBooks)
-BookRoutes.patch("/add/:id", toggleAuthors)
-
-
-
-module.exports = BookRoutes
+module.exports = BookRoutes;
