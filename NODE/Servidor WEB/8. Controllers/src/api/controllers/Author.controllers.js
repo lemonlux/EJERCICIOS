@@ -203,10 +203,24 @@ const deleteAuthor = async (req, res, next) => {
     if (author) {
       //lo ha borrado, pero ahora vamos a hacer el TESTING--- EXISTE?
       const findByIdAuthor = await Author.findById(id);
-      // si existe... ERROR
-      return res.status(findByIdAuthor ? 404 : 202).json({
-        deleteTest: findByIdAuthor ? false : true,
+      // si existe... ERROR ---- hay que borrar los libros de dentro
+      try {
+        const test = await Author.updateMany(
+          { authors: id },
+          { $pull: { authors: id } }
+        )
+        console.log(test)
+
+        return res.status( findByIdAuthor? 404 : 200).json({
+          deleteTest: findByIdAuthor? false: true
+        })
+
+      } catch (error) {
+        return res.status(404).json({
+          error: "no se ha podido borrar",
+          message: error.message
       });
+      }
     } else {
       return res.status(404).json("este autor no existe");
     }
