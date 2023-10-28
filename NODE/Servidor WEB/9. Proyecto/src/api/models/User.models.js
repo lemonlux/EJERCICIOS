@@ -1,2 +1,68 @@
 //! realizamos las importaciones
-const bcrypt = require("bcrypt")
+const bcrypt = require('bcrypt')
+const validator = require('validator')
+const mongoose = require('mongoose')
+
+const userSchema = new mongoose.Schema(
+    {
+        email: {
+            type: String,
+            required: true,
+            trim: true,     //elimina los espacios en blanco de ambos extremos del string
+            unique: true,
+            validate: [validator.isEmail, 'Email is not valid']  // check if the string is an email.
+        },
+        userName: {
+            type: String,
+            required: true,
+            trim: true,
+            unique: true,
+        },
+        password: {
+            type: String,
+            required: true,
+            trim: true,
+            validate: [validator.isStrongPassword],    // check if the string can be considered a strong password or not
+        },
+        gender: {
+            type: String,
+            required: true,
+            enum: ['hombre', 'mujer', 'no binario']
+        },
+        rol: {
+            type: String,
+            enum: ['admin', 'user', 'superadmin'],
+            default: 'user',
+        },
+        confirmationCode: {
+            type: Number,
+            required: true,
+        },
+        check: {
+
+        },
+        image: {
+            type: String,
+        }
+    },
+    {
+        timestamps: true
+    }
+)
+
+userSchema.pre('save', async function(next){
+try {
+    this.password = await bcrypt.hash(this.password, 10)
+    next()
+} catch (error) {
+    next('Error hasing password', error)
+}
+})
+
+//!--- modelo de datos
+
+const User = mongoose.model('User', UserSchema)
+
+//! exportamos
+
+module.exports = User
