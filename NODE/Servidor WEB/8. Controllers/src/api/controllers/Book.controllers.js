@@ -261,4 +261,5 @@ module.exports = {
   getAllBooks,
   getBookByName,
   updateBooks,
+  deleteBooks,
 };

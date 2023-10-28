@@ -5,6 +5,7 @@ const {
   getAllBooks,
   getBookByName,
   updateBooks,
+  deleteBooks,
 } = require("./../controllers/Book.controllers");
 
 const BookRoutes = require("express").Router();
@@ -15,5 +16,6 @@ BookRoutes.get("/", getAllBooks);
 BookRoutes.get("/byName/:name", getBookByName);
 BookRoutes.patch("/add/:id", toggleAuthors);
 BookRoutes.patch("/update/:id", updateBooks)
+BookRoutes.delete("/:id", deleteBooks)
 
 module.exports = BookRoutes;
