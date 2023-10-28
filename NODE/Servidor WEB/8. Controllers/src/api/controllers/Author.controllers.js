@@ -2,6 +2,7 @@
 
 const { deleteImgCloudinary } = require("../../middleware/files.middleware");
 const Author = require("../models/Author.model");
+const Book = require("../models/Book.model")
 
 //?------------------------------------------
 //!--23-------------- CREATE ----------------
@@ -199,13 +200,13 @@ const update = async (req, res, next) => {
 const deleteAuthor = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const author = await Author.findByIdAndRemove(id);
+    const author = await Author.findByIdAndDelete(id);
     if (author) {
       //lo ha borrado, pero ahora vamos a hacer el TESTING--- EXISTE?
       const findByIdAuthor = await Author.findById(id);
       // si existe... ERROR ---- hay que borrar los libros de dentro
       try {
-        const test = await Author.updateMany(
+        const test = await Book.updateMany(
           { authors: id },
           { $pull: { authors: id } }
         )

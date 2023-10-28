@@ -214,7 +214,42 @@ const updateBooks = async (req, res, next) => {
   }
 };
 
-//!----- DELETE
+//!----- DELETE----
+
+const deleteBooks = async (req,res,next)=>{
+try {
+    const { id } = req.params
+    const bookToDelete = await Book.findByIdAndDelete(id)
+  // se ha elimiando??
+  if (bookToDelete){
+    //lo buscamos una vez borrado a ver si se ha elimnado
+    const bookById = await Book.findById(id)
+    try {
+      const test = await Author.updateMany(
+        { books: id},
+        { $pull: {books: id} }
+      )
+
+    return res.status(bookById? 404 : 200).json({deleteTest: bookById? false : true})
+
+    } catch (error) {
+      return res.status(404).json({
+        error: "no se ha podido borrar",
+        message: error.message
+    })
+  }
+  }else{
+    return res.status(404).json("no se ha encontrado este libro")
+  }
+
+} catch (error) {
+  return res.status(404).json({
+    error: "error en el catch del delete",
+    message: error.message
+  })
+}
+
+}
 
 
 
