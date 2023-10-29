@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema(
     {
-        email: {
+        userEmail: {
             type: String,
             required: true,
             trim: true,     //elimina los espacios en blanco de ambos extremos del string
