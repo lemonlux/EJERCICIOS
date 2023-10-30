@@ -81,7 +81,7 @@ const userRegister = async (req, res, next) => {
     } else {
       //el user ya existe -- borramos imagen y enviamos error
       req.file?.path && deleteImgCloudinary(catchImg);
-      return res.status(404).json('this user already exists');
+      return res.status(409).json('this user already exists');
     }
   } catch (error) {
     req.file?.path && deleteImgCloudinary(catchImg); //!--??

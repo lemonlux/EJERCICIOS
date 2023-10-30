@@ -61,7 +61,7 @@ try {
 
 //!--- modelo de datos
 
-const User = mongoose.model('User', UserSchema)
+const User = mongoose.model('User', userSchema)
 
 //! exportamos
 
