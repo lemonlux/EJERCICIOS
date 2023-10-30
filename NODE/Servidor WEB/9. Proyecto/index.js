@@ -33,8 +33,8 @@ app.use(express.urlencoded({ limit: '5mb', extended: false }));
 
 //!----- importación de rutas
 
-const UserRoutes = require('./src/api/routes/User.routes')
-app.use('/api/v1/users/', UserRoutes)
+const UserRoutes = require('./src/api/routes/User.routes');
+app.use('/api/v1/users/', UserRoutes);
 //!---6---- ERRORES DE RUTA Y CRASH
 
 app.use('*', (req, res, next) => {
