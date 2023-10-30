@@ -209,8 +209,9 @@ const redirectRegister = async (req,res,next)=>{
 
           if (userSaved){  //!--- aqui viene lo diferente del redirect
              
-            return res.
+            return res.redirect(307, `http://localhost:8080/api/v1/users/register/sendMail/${userSaved._id}`)
 
+              //*esta ruta tiene que ser la misma que especifiquemos en user routes para la funcion send mail
 
           }
 
