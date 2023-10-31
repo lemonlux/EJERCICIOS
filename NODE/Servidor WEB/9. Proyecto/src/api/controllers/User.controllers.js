@@ -383,6 +383,69 @@ const autoLogin = async (req,res,next) =>{
   }
 }
 
+//?---------------------------------------------------------------------------------
+//! ----------------------------- RESEND CODE --------------------------------------
+//?---------------------------------------------------------------------------------
+
+const resendCode = async (req,res,next) =>{
+
+try {
+
+  const userExists = await User.findOne({ email: req.body.userEmail })
+  
+  const myEmail = process.env.EMAIL
+  const myPassword = process.env.PASSWORD
+
+  if (userExists){ //esto en el sendCode no lo hacemos porque para que se redirija la pag ya tiene que existir, aqui en cambio es un boton independiente
+
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: myEmail,
+        pass: myPassword
+      }
+    })
+
+    const mailInfo = {
+      from: myEmail,
+      to: userExists.userEmail,
+      subject: 'Confirmation code',
+      text: `Hi ${userExists.userName}, your confirmation code is ${userExists.confirmationCode}`
+    }
+
+    transporter.sendMail(mailInfo, (error,info)=>{
+      if (error){
+        console.log(error)
+        return res.status(404).json({
+          resend: false,
+        })
+      }else{
+        console.log(info.response)
+        return res.status(200).json({
+          resend: true,
+        })
+      }
+    })
+
+
+
+  }else{
+    return res.status(404).json('This user does not exist')
+  }
+
+
+
+
+
+
+} catch (error) {
+  return res.status(404).sjon({
+    error: 'error en el catch general',
+    message: error.message
+  })
+}
+
+}
 
 
 
@@ -396,5 +459,6 @@ module.exports = {
   redirectRegister,
   sendCode,
   login,
-  autoLogin
+  autoLogin,
+  resendCode
 };
