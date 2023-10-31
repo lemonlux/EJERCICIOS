@@ -5,8 +5,11 @@ const { deleteImgCloudinary } = require('../../middleware/files.middleware');
 const nodemailer = require('nodemailer');
 const { setSendEmail, getSendEmail } = require('../../state/state.data');
 const sendEmail = require('../../utils/sendEmail');
+const { generateToken } = require('../../utils/token');
 
-//! ------------------- register largo ------------------------
+//?---------------------------------------------------------------------------------
+//! --------------------------- REGISTER LARGO -------------------------------------
+//?---------------------------------------------------------------------------------
 
 const userRegister = async (req, res, next) => {
   let catchImg = req.file?.path;
@@ -97,14 +100,16 @@ const userRegister = async (req, res, next) => {
   }
 };
 
-//! ------------------- register con el estado ------------------------
+//?---------------------------------------------------------------------------------
+//! ------------------------ REGISTER CON EL ESTADO --------------------------------
+//?---------------------------------------------------------------------------------
+//
 /* antes de hacer el register necesitamos crear el state.data.js para establecer el estado del email
 con el set y el get, y hacer una función externa de sendEmail que ubicaremos en utils */
 
 //* va a ser igual que el otro
 
 const stateRegister = async (req, res, next) => {
-  //!!! ERRROR
   let catchImg = req.file?.path;
 
   try {
@@ -114,8 +119,8 @@ const stateRegister = async (req, res, next) => {
     console.log(userEmail, userName); //del model
 
     const userExists = await User.findOne(
-      { userEmail: req.body.userEmail }, //ambas son unique por eso se ponen en objetos separados
-      { userName: req.body.userName }
+      { userEmail }, //ambas son unique por eso se ponen en objetos separados
+      { userName }
     );
 
     if (!userExists) {
@@ -126,11 +131,8 @@ const stateRegister = async (req, res, next) => {
         : (newUser.image = 'https://pic.onlinewebfonts.com/svg/img_181369.png');
 
       try {
-        //como vamos a usar otro await - otro trycatch     //?...-----??? EL RANDOM CODE TIENE PARAMETROS
-        console.log('entrooooo en el trycatch');
+        //como vamos a usar otro await - otro trycatch     //?...-----!! EL RANDOM CODE TIENE PARAMETROS
         const userSaved = await newUser.save();
-
-        console.log(newUser);
         if (userSaved) {
           //si el usuario se ha guardado enviamos el email
 
@@ -178,9 +180,11 @@ const stateRegister = async (req, res, next) => {
   }
 };
 
-//!------------------ register con redirect ---------------------
+//?---------------------------------------------------------------------------------
+//! ------------------------ REGISTER CON REDIRECT ---------------------------------
+//?---------------------------------------------------------------------------------
 //* es igual que anteriormente pero cuando comprobemos que el usuario este guardado redirigimos a una pagina que nos envie el codigo
-//necesitamos de la funcion sendCode 
+//necesitamos de la funcion sendCode
 
 const redirectRegister = async (req, res, next) => {
   let catchImg = req.file?.path;
@@ -188,10 +192,11 @@ const redirectRegister = async (req, res, next) => {
   try {
     await User.syncIndexes(); //sincronizamos indexes
     let confirmationCode = randomCode(100000, 999999); //creamos el codigo de confirmacion
+    const { userEmail, userName } = req.body
     const userExist = await User.findOne(
       //buscamos el usuario
-      { userEmail: req.body.userEmail },
-      { userName: req.body.userName }
+      { userEmail },
+      { userName }
     );
     if (!userExist) {
       //si el usuario no existe hay que hacer uno nuevo
@@ -241,66 +246,110 @@ const redirectRegister = async (req, res, next) => {
   }
 };
 
+//?---------------------------------------------------------------------------------
+//todo ------------------------ SEND CODE del redirect -----------------------------
+//?---------------------------------------------------------------------------------
 
-//todo---------- SEND CODE del redirect ---------
+const sendCode = async (req, res, next) => {
+  try {
+    //hemos guardado el user y nos ha redireccionado
+    // queremos: -el id para la busqueda del user -los parametros del env
+    //* vamos a hacer: transporter, mailInfo y enviar con sendEmail
 
+    const { id } = req.params;
+    const findUser = await User.findById(id);
 
-const sendCode = async (req,res,next) =>{
-try {  //hemos guardado el user y nos ha redireccionado
-  // queremos: -el id para la busqueda del user -los parametros del env
-  //* vamos a hacer: transporter, mailInfo y enviar con sendEmail
-  
-  const { id } = req.params
-  const findUser = await User.findById(id)
-  
-  const myEmail = process.env.EMAIL
-  const myPassword = process.env.PASSWORD
+    const myEmail = process.env.EMAIL;
+    const myPassword = process.env.PASSWORD;
 
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: myEmail,
-      pass: myPassword
-    }
-  })
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: myEmail,
+        pass: myPassword,
+      },
+    });
 
-  const mailInfo = {
-    from: myEmail,
-    to: findUser.userEmail,
-    subject: 'Confirmation code',
-    text: `Hi ${findUser.userName}, your confirmation code is ${findUser.confirmationCode}`
+    const mailInfo = {
+      from: myEmail,
+      to: findUser.userEmail,
+      subject: 'Confirmation code',
+      text: `Hi ${findUser.userName}, your confirmation code is ${findUser.confirmationCode}`,
+    };
+
+    transporter.sendMail(mailInfo, function (error, info) {
+      if (error) {
+        console.log('hay un error!!!', error);
+        return res.status(404).json({
+          user: findUser,
+          confirmationCode: 'error, resend code', //para el front
+        });
+      } else {
+        console.log(info.response);
+        return res
+          .status(200)
+          .json({
+            user: findUser,
+            confirmationCode: findUser.confirmationCode,
+          });
+      }
+    });
+  } catch (error) {
+    res.status(404).json({
+      error: 'error en el catch del sendcode',
+      message: error.message,
+    }) && next(error);
   }
-
-  transporter.sendMail(mailInfo, function (error, info){
-    if (error){
-      console.log("hay un error!!!", error)
-      return res.status(404).json({
-        user: findUser,
-        confirmationCode: 'error, resend code'  //para el front
-      })
-    }else{
-      console.log (info.response)
-      return res.status(200).json({
-        user: findUser,
-        confirmationCode: findUser.confirmationCode
-      })
-    }
-  })
+};
 
 
+
+//?---------------------------------------------------------------------------------
+//! --------------------------------- LOGIN ----------------------------------------
+//?---------------------------------------------------------------------------------
+
+
+const login = async (req,res,next)=>{
+  //no hay imagen que cachear ni que sincronizar indexes (no estamos metiendo info nueva)
+try {  //ya tenemos usuario registrado tenemos que ver si existe
+  const { userEmail, password } = req.body
+  const userDB = await User.findOne({ userEmail })
+
+  if (userDB){
+    //comparamos la contraseña encriptada para ver si es la misma
+
+    if(bcrypt.compareSync(password, userDB.password)){ //metodo que devuelve un boolean
+      // hay que hacerlo con el metodo porque la que viene por el 
+
+
+
+    } 
+  } else {
+    return res.status(404).json('This user is not registered')
+  }
 
 
 } catch (error) {
-  res.status(404).json({
-    error: 'error en el catch del sendcode',
+  return res.status(404).json({
+    error: 'error en el catch del login',
     message: error.message,
-  }) && next(error)
+  })
+}
+
 }
 
 
 
 
-}
+
+
+
+
+
+
+
+
+
 
 
 
