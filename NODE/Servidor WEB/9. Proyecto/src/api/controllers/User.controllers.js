@@ -180,6 +180,7 @@ const stateRegister = async (req, res, next) => {
 
 //!------------------ register con redirect ---------------------
 //* es igual que anteriormente pero cuando comprobemos que el usuario este guardado redirigimos a una pagina que nos envie el codigo
+//necesitamos de la funcion sendCode 
 
 const redirectRegister = async (req, res, next) => {
   let catchImg = req.file?.path;
