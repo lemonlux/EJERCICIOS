@@ -6,6 +6,7 @@ const nodemailer = require('nodemailer');
 const { setSendEmail, getSendEmail } = require('../../state/state.data');
 const sendEmail = require('../../utils/sendEmail');
 const { generateToken } = require('../../utils/token');
+const bcrypt = require('bcrypt');
 
 //?---------------------------------------------------------------------------------
 //! --------------------------- REGISTER LARGO -------------------------------------
@@ -192,7 +193,7 @@ const redirectRegister = async (req, res, next) => {
   try {
     await User.syncIndexes(); //sincronizamos indexes
     let confirmationCode = randomCode(100000, 999999); //creamos el codigo de confirmacion
-    const { userEmail, userName } = req.body
+    const { userEmail, userName } = req.body;
     const userExist = await User.findOne(
       //buscamos el usuario
       { userEmail },
@@ -286,12 +287,10 @@ const sendCode = async (req, res, next) => {
         });
       } else {
         console.log(info.response);
-        return res
-          .status(200)
-          .json({
-            user: findUser,
-            confirmationCode: findUser.confirmationCode,
-          });
+        return res.status(200).json({
+          user: findUser,
+          confirmationCode: findUser.confirmationCode,
+        });
       }
     });
   } catch (error) {
@@ -302,41 +301,88 @@ const sendCode = async (req, res, next) => {
   }
 };
 
-
-
 //?---------------------------------------------------------------------------------
 //! --------------------------------- LOGIN ----------------------------------------
 //?---------------------------------------------------------------------------------
 
-
-const login = async (req,res,next)=>{
+const login = async (req, res, next) => {
   //no hay imagen que cachear ni que sincronizar indexes (no estamos metiendo info nueva)
-try {  //ya tenemos usuario registrado tenemos que ver si existe
-  const { userEmail, password } = req.body
-  const userDB = await User.findOne({ userEmail })
+  try {
+    //ya tenemos usuario registrado tenemos que ver si existe
+    const { userEmail, password } = req.body;
+    const userDB = await User.findOne({ userEmail });
 
-  if (userDB){
-    //comparamos la contraseña encriptada para ver si es la misma
+    if (userDB) {
+      //comparamos la contraseña encriptada para ver si es la misma
 
-    if(bcrypt.compareSync(password, userDB.password)){ //metodo que devuelve un boolean
-      // hay que hacerlo con el metodo porque la que viene por el 
+      if (bcrypt.compareSync(password, userDB.password)) {
+        //metodo que devuelve un boolean (password, hash)
+        // hay que hacerlo con el metodo porque la que viene por el body no está encriptada y la guardada si
 
+        //*generamos un token si las dos contraseñas coinciden
+        const token = generateToken(userDB._id, userEmail);
 
-
-    } 
-  } else {
-    return res.status(404).json('This user is not registered')
+        return res.status(200).json({
+          user: userDB,
+          token,
+        });
+      } else {
+        //si las password no matchean
+        return res.status(404).json('Wrong password');
+      }
+    } else {
+      return res.status(404).json('This user is not registered');
+    }
+  } catch (error) {
+    return res.status(404).json({
+      error: 'error en el catch del login',
+      message: error.message,
+    });
   }
+};
 
 
-} catch (error) {
-  return res.status(404).json({
-    error: 'error en el catch del login',
-    message: error.message,
-  })
+//?---------------------------------------------------------------------------------
+//! ------------------------------- AUTOLOGIN --------------------------------------
+//?---------------------------------------------------------------------------------
+//* -- CUANDO HAGAMOS AUTOLOGIN tenemos que meter por insomnia la contraseña encriptada que nos da el login
+//* -- lo metemos por JSON y el token que nos devuelve lo tenemos que copiar y pegar encima del token anterior 
+//* guardado en las variables de entorno
+
+const autoLogin = async (req,res,next) =>{
+  try {
+    const { userEmail, password } = req.body
+    const userDB = await User.findOne({ userEmail })
+
+    if (userDB){
+
+      if (password === userDB.password){ //la password es la YA GUARDADA (AUTOLOGIN), y la userDB.password es la registrada
+        //cada vez que el usuario se logea se genera un nuevo token
+        const token = generateToken(userDB._id, userEmail)
+
+        return res.status(200).json({
+          user: userDB,
+          token
+        })
+
+
+      } else {
+        return res.status(404).json('Wrong password');
+      }
+
+    } else {
+      return res.status(404).json ('This user does not exist')
+    }
+
+
+  } catch (error) {
+    return res.status(404).json({
+      error: 'error en el catch del autologin',
+      message: error.message
+    })
+  }
 }
 
-}
 
 
 
@@ -344,14 +390,11 @@ try {  //ya tenemos usuario registrado tenemos que ver si existe
 
 
 
-
-
-
-
-
-
-
-
-
-
-module.exports = { userRegister, stateRegister, redirectRegister, sendCode };
+module.exports = {
+  userRegister,
+  stateRegister,
+  redirectRegister,
+  sendCode,
+  login,
+  autoLogin
+};
