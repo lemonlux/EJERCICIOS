@@ -19,7 +19,7 @@ const generateToken = (id, email) =>{    //el generado lo necesitamos en la func
 
 //* cuando nos logamos se nos crea un token con generateToken, y tenemos que verificarlo y sacar la info - email, id
 
-const verifyToken = (token) =>{   //el verificar lo necesitamos en el middleware de autenticacion
+const verifyToken = (token, secretOrPublicKey) =>{   //el verificar lo necesitamos en el middleware de autenticacion
 
     if(!token){
         throw new Error('Token is missing')
