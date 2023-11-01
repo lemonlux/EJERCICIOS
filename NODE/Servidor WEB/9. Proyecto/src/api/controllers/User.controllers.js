@@ -7,6 +7,7 @@ const { setSendEmail, getSendEmail } = require('../../state/state.data');
 const sendEmail = require('../../utils/sendEmail');
 const { generateToken } = require('../../utils/token');
 const bcrypt = require('bcrypt');
+const randomPasswordGenerator = require('./../../utils/randomPassword')
 
 //* ________________________________ POST _________________________________________
 
@@ -484,7 +485,7 @@ const verifyCode = async (req, res, next) => {
 
         //ahora un status de que el usuario se ha borrado 
         const deletedUser = await User.findById(userExists._id)
-        
+
        if(deletedUser){
         return res.status(409).json({
           userExists,
@@ -514,6 +515,33 @@ const verifyCode = async (req, res, next) => {
     );
   }
 };
+
+//?---------------------------------------------------------------------------------
+//! -------------------------- CAMBIO DE CONTRASEÑA --------------------------------
+//?-------------------------- cuando no estás logado -------------------------------
+/* vamos a hacerlo con un redirect. necesitamos el email del usuario, redirigirlo
+funciones de crear transporte, mailInfo y enviarlo.
+y una funcion de creación de contraseñas random--- en utils */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //* ________________________________ READ _________________________________________
 
