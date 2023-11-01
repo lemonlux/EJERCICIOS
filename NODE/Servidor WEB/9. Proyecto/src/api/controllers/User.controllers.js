@@ -8,6 +8,9 @@ const sendEmail = require('../../utils/sendEmail');
 const { generateToken } = require('../../utils/token');
 const bcrypt = require('bcrypt');
 
+
+//* ________________________________ POST _________________________________________
+
 //?---------------------------------------------------------------------------------
 //! --------------------------- REGISTER LARGO -------------------------------------
 //?---------------------------------------------------------------------------------
@@ -341,115 +344,145 @@ const login = async (req, res, next) => {
   }
 };
 
-
 //?---------------------------------------------------------------------------------
 //! ------------------------------- AUTOLOGIN --------------------------------------
 //?---------------------------------------------------------------------------------
 //* -- CUANDO HAGAMOS AUTOLOGIN tenemos que meter por insomnia la contraseña encriptada que nos da el login
-//* -- lo metemos por JSON y el token que nos devuelve lo tenemos que copiar y pegar encima del token anterior 
+//* -- lo metemos por JSON y el token que nos devuelve lo tenemos que copiar y pegar encima del token anterior
 //* guardado en las variables de entorno
 
-const autoLogin = async (req,res,next) =>{
+const autoLogin = async (req, res, next) => {
   try {
-    const { userEmail, password } = req.body
-    const userDB = await User.findOne({ userEmail })
+    const { userEmail, password } = req.body;
+    const userDB = await User.findOne({ userEmail });
 
-    if (userDB){
-
-      if (password === userDB.password){ //la password es la YA GUARDADA (AUTOLOGIN), y la userDB.password es la registrada
+    if (userDB) {
+      if (password === userDB.password) {
+        //la password es la YA GUARDADA (AUTOLOGIN), y la userDB.password es la registrada
         //cada vez que el usuario se logea se genera un nuevo token
-        const token = generateToken(userDB._id, userEmail)
+        const token = generateToken(userDB._id, userEmail);
 
         return res.status(200).json({
           user: userDB,
-          token
-        })
-
-
+          token,
+        });
       } else {
         return res.status(404).json('Wrong password');
       }
-
     } else {
-      return res.status(404).json ('This user does not exist')
+      return res.status(404).json('This user does not exist');
     }
-
-
   } catch (error) {
     return res.status(404).json({
       error: 'error en el catch del autologin',
-      message: error.message
-    })
+      message: error.message,
+    });
   }
-}
+};
 
 //?---------------------------------------------------------------------------------
 //! ----------------------------- RESEND CODE --------------------------------------
 //?---------------------------------------------------------------------------------
 
-const resendCode = async (req,res,next) =>{
+const resendCode = async (req, res, next) => {
+  try {
+    const userExists = await User.findOne({ email: req.body.userEmail });
 
-try {
+    const myEmail = process.env.EMAIL;
+    const myPassword = process.env.PASSWORD;
 
-  const userExists = await User.findOne({ email: req.body.userEmail })
-  
-  const myEmail = process.env.EMAIL
-  const myPassword = process.env.PASSWORD
+    if (userExists) {
+      //esto en el sendCode no lo hacemos porque para que se redirija la pag 
+      // el usuario ya tiene que existir, aqui en cambio es un boton independiente
 
-  if (userExists){ //esto en el sendCode no lo hacemos porque para que se redirija la pag ya tiene que existir, aqui en cambio es un boton independiente
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: myEmail,
+          pass: myPassword,
+        },
+      });
 
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: myEmail,
-        pass: myPassword
-      }
-    })
+      const mailInfo = {
+        from: myEmail,
+        to: userExists.userEmail,
+        subject: 'Confirmation code',
+        text: `Hi ${userExists.userName}, your confirmation code is ${userExists.confirmationCode}`,
+      };
 
-    const mailInfo = {
-      from: myEmail,
-      to: userExists.userEmail,
-      subject: 'Confirmation code',
-      text: `Hi ${userExists.userName}, your confirmation code is ${userExists.confirmationCode}`
+      transporter.sendMail(mailInfo, (error, info) => {
+        if (error) {
+          console.log(error);
+          return res.status(404).json({
+            resend: false,
+          });
+        } else {
+          console.log(info.response);
+          return res.status(200).json({
+            resend: true,
+          });
+        }
+      });
+    } else {
+      return res.status(404).json('This user does not exist');
     }
-
-    transporter.sendMail(mailInfo, (error,info)=>{
-      if (error){
-        console.log(error)
-        return res.status(404).json({
-          resend: false,
-        })
-      }else{
-        console.log(info.response)
-        return res.status(200).json({
-          resend: true,
-        })
-      }
-    })
-
-
-
-  }else{
-    return res.status(404).json('This user does not exist')
+  } catch (error) {
+    return res.status(404).sjon({
+      error: 'error en el catch general',
+      message: error.message,
+    });
   }
+};
+
+//?---------------------------------------------------------------------------------
+//! ----------------------------- VERIFY CODE --------------------------------------
+//?---------------------------------------------------------------------------------
+/*tenemos que verificar que el codigo que nos devuelve el usuario es el mismo que el que le hemos dado
+*/
 
 
 
 
 
 
-} catch (error) {
-  return res.status(404).sjon({
-    error: 'error en el catch general',
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//* ________________________________ READ _________________________________________
+
+const userById = async (req,res,next) =>{
+ try {
+  const { id } = req.params
+  const userById = await User.findById(id)
+if (userById) {
+  return res.status(200).json(userById)
+} else {
+  return res.status(404).json('Usuario no encontrado')
+}
+
+ } catch (error) {
+  return res.status(404).json({
+    error: 'error en el catch',
     message: error.message
   })
+  
+ }
 }
-
-}
-
-
-
-
 
 
 
@@ -460,5 +493,6 @@ module.exports = {
   sendCode,
   login,
   autoLogin,
-  resendCode
+  resendCode,
+  userById,
 };

@@ -38,9 +38,13 @@ const userSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    check: {},
+    check: {
+      type: Boolean,
+      default: false,
+    },
     image: {
       type: String,
+      default: false,
     },
   },
   {

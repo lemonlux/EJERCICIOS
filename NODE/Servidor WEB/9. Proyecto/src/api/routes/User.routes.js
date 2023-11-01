@@ -6,12 +6,13 @@ const {
   login,
   autoLogin,
   resendCode,
+  userById,
 } = require('../controllers/User.controllers');
 const { upload } = require('../../middleware/files.middleware');
 const User = require('../models/User.models');
 
 const UserRoutes = require('express').Router();
-
+//*---- post
 UserRoutes.post('/registerLong', upload.single('image'), userRegister);
 UserRoutes.post('/registerState', upload.single('image'), stateRegister);
 UserRoutes.post('/redirectRegister', upload.single('image'), redirectRegister);
@@ -19,6 +20,16 @@ UserRoutes.post('/login', login);
 UserRoutes.post('/login/autoLogin', autoLogin);
 UserRoutes.post('/resend', resendCode)
 
+//*----- get
+
+UserRoutes.get('/:id', userById)
+
+
+
+//---------- controladores autenticados
+
+
+//---------- controladores de redirect
 //'/redirect/sendMail/:id'
 UserRoutes.post('/register/sendMail/:id', sendCode);
 
