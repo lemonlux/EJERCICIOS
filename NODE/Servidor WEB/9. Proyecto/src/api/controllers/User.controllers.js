@@ -8,7 +8,6 @@ const sendEmail = require('../../utils/sendEmail');
 const { generateToken } = require('../../utils/token');
 const bcrypt = require('bcrypt');
 
-
 //* ________________________________ POST _________________________________________
 
 //?---------------------------------------------------------------------------------
@@ -386,13 +385,14 @@ const autoLogin = async (req, res, next) => {
 
 const resendCode = async (req, res, next) => {
   try {
-    const userExists = await User.findOne({ email: req.body.userEmail });
+    const { userEmail } = req.body
+    const userExists = await User.findOne({ userEmail });
 
     const myEmail = process.env.EMAIL;
     const myPassword = process.env.PASSWORD;
 
     if (userExists) {
-      //esto en el sendCode no lo hacemos porque para que se redirija la pag 
+      //esto en el sendCode no lo hacemos porque para que se redirija la pag
       // el usuario ya tiene que existir, aqui en cambio es un boton independiente
 
       const transporter = nodemailer.createTransport({
@@ -438,53 +438,101 @@ const resendCode = async (req, res, next) => {
 //! ----------------------------- VERIFY CODE --------------------------------------
 //?---------------------------------------------------------------------------------
 /*tenemos que verificar que el codigo que nos devuelve el usuario es el mismo que el que le hemos dado
-*/
+ si no lo es --> eliminamos el usuario de la base de datos --- 
+ si sí lo es --> hacemos check: true (ESTÁ VERIFICADO) */
+
+//* necesitamos el email del usuario y el código de confirmacion
+
+const verifyCode = async (req, res, next) => {
+  try {
+    const { userEmail, confirmationCode } = req.body; //! por qué nos llega el userEmail cuando hace el verify?
+    const userExists = await User.findOne({ userEmail });
+    if (userExists) {
+      //- el guardado cuando hizo login === el que nos llega por el body (el que mete)
+      if (userExists.confirmationCode === confirmationCode) {
+        //- si coinciden hacemos check: true porque está verificado
+        try {
+          await userExists.updateOne({ check: true });
+
+          //lo volvemos a buscar para ver si se ha cambiado bien
+
+          const updatedUser = await User.findOne({ userEmail });
+
+          if (updatedUser.check) {
+            //esto lo hemos puesto a true
+            return res.status(200).json({
+              testCheckUser: true,
+            });
+          } else {
+            return res.status(404).json({
+              testCheckUser: false,
+            });
+          }
+        } catch (error) {
+          return res.status(404).json({
+            error: 'error en el catch del update',
+            message: error.message,
+          });
+        }
+      } else {
+        //lo borramos de la base de datos
+
+        await User.findByIdAndDelete(userExists._id)
+        
+        //! tenemos que borrar tb la imagen del cloudinary!!
+        deleteImgCloudinary(userExists.image)
+
+        //ahora un status de que el usuario se ha borrado 
+        const deletedUser = await User.findById(userExists._id)
+        
+       if(deletedUser){
+        return res.status(409).json({
+          userExists,
+          check: false,
+          delete: 'confirmation code does not match but there has been an error deleting the user'
+        })
+
+       }else{
+        return res.status(404).json({
+          userExists,
+          check: false,
+          delete: 'confirmation code does not match, this user has been deleted'
+        })
+       }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      }
+    } else {
+      return res.status(200).json('This user does not exist');
+    }
+  } catch (error) {
+    return (
+      res.status(200).json({
+        error: 'error en el catch',
+        message: error.message,
+      }) && next(error)
+    );
+  }
+};
 
 //* ________________________________ READ _________________________________________
 
-const userById = async (req,res,next) =>{
- try {
-  const { id } = req.params
-  const userById = await User.findById(id)
-if (userById) {
-  return res.status(200).json(userById)
-} else {
-  return res.status(404).json('Usuario no encontrado')
-}
-
- } catch (error) {
-  return res.status(404).json({
-    error: 'error en el catch',
-    message: error.message
-  })
-  
- }
-}
-
-
+const userById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const userById = await User.findById(id);
+    if (userById) {
+      return res.status(200).json(userById);
+    } else {
+      return res.status(404).json('Usuario no encontrado');
+    }
+  } catch (error) {
+    return res.status(404).json({
+      error: 'error en el catch',
+      message: error.message,
+    });
+  }
+};
 
 module.exports = {
   userRegister,
@@ -495,4 +543,5 @@ module.exports = {
   autoLogin,
   resendCode,
   userById,
+  verifyCode
 };
