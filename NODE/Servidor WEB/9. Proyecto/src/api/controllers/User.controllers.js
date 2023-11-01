@@ -537,7 +537,7 @@ const changePassword = async (req,res,next) =>{
 
         return res.redirect(
           307,
-          `http://localhost:8080/api/v1/users/changePassword/${userExists._id}`   //esto es lo que vamos a poner en las routes
+          `http://localhost:8080/api/v1/users/sendPassword/${userExists._id}`   //esto es lo que vamos a poner en las routes
         )
 
     }else{
@@ -555,8 +555,80 @@ const changePassword = async (req,res,next) =>{
 
 
 const sendNewPassword = async(req,res,next)=>{
+let newPassword = randomPasswordGenerator()
+try {
+  // queremos: -el id para la busqueda del user -los parametros del env
+    //* vamos a hacer: transporter, mailInfo y enviar con sendEmail
+
+    const { id } = req.params
+    const userDB = await User.findById(id)
+
+    const myEmail = process.env.EMAIL
+    const myPassword = process.env.PASSWORD
+
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        email: myEmail,
+        pass: myPassword
+      }
+    })
+
+    const mailInfo = {
+      from: myEmail,
+      to: userDB.userEmail,
+      subject: 'New password',
+      text: `Hi ${userDB.userName}! Your new password is ${newPassword}. Please don't share this password with anyone.`
+    }
+
+    transporter.sendMail(mailInfo, async function (error, info){
+      if (error){
+        console.log(error)
+        return res.status(404).json({
+          send: false,
+          updatedUser: false,
+          message: error.message
+        })
+      }else{
+        console.log('Email sent', info.response)
+        // si se ha enviado una nueva contraseña la tenemos que hasear
+
+        const newPasswordHash = bcrypt.hashSync(newPassword, 10)
+
+      }
+
+
+
+
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+} catch (error) {
+  return res.status(404).json({
+    error: 'error en el envío',
+    message: error.message
+  })&& next(error)
+}
+
+
 
 }
+
+
 
 
 

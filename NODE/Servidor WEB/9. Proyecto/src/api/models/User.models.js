@@ -54,7 +54,7 @@ const userSchema = new mongoose.Schema(
 
 userSchema.pre('save', async function (next) {
   try {
-    this.password = await bcrypt.hash(this.password, 10);
+    this.password = await bcrypt.hash(this.password, 10); //hash(password, cuantas veces)
     next();
   } catch (error) {
     next('Error hasing password', error);

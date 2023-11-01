@@ -23,8 +23,8 @@ UserRoutes.post('/login', login);
 UserRoutes.post('/login/autoLogin', autoLogin);
 UserRoutes.post('/resend', resendCode)
 UserRoutes.post('/verify', verifyCode)   //es el mismo que el checkNewUser de clase
-UserRoutes.post('/changePassword', changePassword)
-UserRoutes.post('/changePassword/:id', sendNewPassword)
+UserRoutes.patch('/changePassword', changePassword)    //! ???????
+
 
 //*----- get
 
@@ -38,5 +38,6 @@ UserRoutes.get('/:id', userById)
 //---------- controladores de redirect
 //'/redirect/sendMail/:id'
 UserRoutes.post('/register/sendMail/:id', sendCode);
+UserRoutes.patch('/sendPassword/:id', sendNewPassword)   //! por que patch
 
 module.exports = UserRoutes;
