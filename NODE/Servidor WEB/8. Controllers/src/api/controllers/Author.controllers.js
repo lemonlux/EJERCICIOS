@@ -140,7 +140,7 @@ const update = async (req, res, next) => {
         if (req.file?.path) {
           deleteImgCloudinary(oldImg);
         }
-        //*----- VAMOS A HACER EL TESTING -------
+        //todo----- VAMOS A HACER EL TESTING -------
 
         const authorByIdUpdate = await Author.findById(id);
         const elementUpdate = Object.keys(req.body);

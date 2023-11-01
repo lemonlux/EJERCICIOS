@@ -7,7 +7,7 @@ const { setSendEmail, getSendEmail } = require('../../state/state.data');
 const sendEmail = require('../../utils/sendEmail');
 const { generateToken } = require('../../utils/token');
 const bcrypt = require('bcrypt');
-const randomPasswordGenerator = require('./../../utils/randomPassword')
+const randomPasswordGenerator = require('./../../utils/randomPassword');
 
 //* ________________________________ POST _________________________________________
 
@@ -252,7 +252,7 @@ const redirectRegister = async (req, res, next) => {
 
 //?---------------------------------------------------------------------------------
 //todo ------------------------ SEND CODE del redirect -----------------------------
-//?---------------------------------------------------------------------------------
+//------
 
 const sendCode = async (req, res, next) => {
   try {
@@ -386,7 +386,7 @@ const autoLogin = async (req, res, next) => {
 
 const resendCode = async (req, res, next) => {
   try {
-    const { userEmail } = req.body
+    const { userEmail } = req.body;
     const userExists = await User.findOne({ userEmail });
 
     const myEmail = process.env.EMAIL;
@@ -478,30 +478,29 @@ const verifyCode = async (req, res, next) => {
       } else {
         //lo borramos de la base de datos
 
-        await User.findByIdAndDelete(userExists._id)
-        
+        await User.findByIdAndDelete(userExists._id);
+
         //! tenemos que borrar tb la imagen del cloudinary!!
-        deleteImgCloudinary(userExists.image)
+        deleteImgCloudinary(userExists.image);
 
-        //ahora un status de que el usuario se ha borrado 
-        const deletedUser = await User.findById(userExists._id)
+        //ahora un status de que el usuario se ha borrado
+        const deletedUser = await User.findById(userExists._id);
 
-       if(deletedUser){
-        return res.status(409).json({
-          userExists,
-          check: false,
-          delete: 'confirmation code does not match but there has been an error deleting the user'
-        })
-
-       }else{
-        return res.status(404).json({
-          userExists,
-          check: false,
-          delete: 'confirmation code does not match, this user has been deleted'
-        })
-       }
-
-
+        if (deletedUser) {
+          return res.status(409).json({
+            userExists,
+            check: false,
+            delete:
+              'confirmation code does not match but there has been an error deleting the user',
+          });
+        } else {
+          return res.status(404).json({
+            userExists,
+            check: false,
+            delete:
+              'confirmation code does not match, this user has been deleted',
+          });
+        }
       }
     } else {
       return res.status(200).json('This user does not exist');
@@ -525,124 +524,110 @@ necesitamos el email del usuario, redirigirlo
 funciones de crear transporte, mailInfo y enviarlo.
 y una funcion de creación de contraseñas random--- randomPasswordGenerator en utils */
 
-
-
-const changePassword = async (req,res,next) =>{
-
+const changePassword = async (req, res, next) => {
   try {
-    const { userEmail } = req.body
-  const userExists = await User.findOne({userEmail})
+    const { userEmail } = req.body;
+    const userExists = await User.findOne({ userEmail });
 
-    if (userExists){
-
-        return res.redirect(
-          307,
-          `http://localhost:8080/api/v1/users/sendPassword/${userExists._id}`   //esto es lo que vamos a poner en las routes
-        )
-
-    }else{
-      return res.status(404).json('This user does not exist')
+    if (userExists) {
+      return res.redirect(
+        307,
+        `http://localhost:8080/api/v1/users/sendPassword/${userExists._id}` //esto es lo que vamos a poner en las routes
+      );
+    } else {
+      return res.status(404).json('This user does not exist');
     }
-
   } catch (error) {
     return res.status(404).json({
       error: 'error en el catch',
-      message: error.message
-    })
+      message: error.message,
+    });
   }
+};
 
-}
+//?---------------------------------------------------------------------------------
+//todo --------------------- SEND NEW PASSWORD del change --------------------------
 
-
-const sendNewPassword = async(req,res,next)=>{
-let newPassword = randomPasswordGenerator()
-try {
-  // queremos: -el id para la busqueda del user -los parametros del env
+const sendNewPassword = async (req, res, next) => {
+  let newPassword = randomPasswordGenerator();
+  try {
+    // queremos: -el id para la busqueda del user -los parametros del env
     //* vamos a hacer: transporter, mailInfo y enviar con sendEmail
 
-    const { id } = req.params
-    const userDB = await User.findById(id)
+    const { id } = req.params;
+    const userDB = await User.findById(id);
 
-    const myEmail = process.env.EMAIL
-    const myPassword = process.env.PASSWORD
+    const myEmail = process.env.EMAIL;
+    const myPassword = process.env.PASSWORD;
 
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        email: myEmail,
-        pass: myPassword
-      }
-    })
+        user: myEmail,
+        pass: myPassword,
+      },
+    });
 
     const mailInfo = {
       from: myEmail,
       to: userDB.userEmail,
       subject: 'New password',
-      text: `Hi ${userDB.userName}! Your new password is ${newPassword}. Please don't share this password with anyone.`
-    }
+      text: `Hi ${userDB.userName}! Your new password is ${newPassword}. Please don't share this with anyone.`,
+    };
 
-    transporter.sendMail(mailInfo, async function (error, info){
-      if (error){
-        console.log(error)
+    transporter.sendMail(mailInfo, async function (error, info) {
+      if (error) {
+        console.log(error);
         return res.status(404).json({
           send: false,
           updatedUser: false,
-          message: error.message
-        })
-      }else{
-        console.log('Email sent', info.response)
+          message: error.message,
+        });
+      } else {
+        console.log('Email sent', info.response);
         // si se ha enviado una nueva contraseña la tenemos que hasear
 
-        const newPasswordHash = bcrypt.hashSync(newPassword, 10)
+        const newPasswordHash = bcrypt.hashSync(newPassword, 10);
+        //  hay que actualizar el user --- await --- trycatch
+        try {
+          await User.findByIdAndUpdate(id, { password: newPasswordHash });
 
+          //todo ----------- TESTING -----------------------------
+          /* como es un update tenemos que comprobar que se ha actualizado correctamente-> 
+        contraseña que mete por el body y la hasheada */
+
+          const userPasswordUpdated = await User.findById(id);
+          if (newPasswordHash === userPasswordUpdated.password){  //! SE PUEDE HACER ASI EN VEZ DE CON EL bcrypt.compareSync() ?
+         // if (bcrypt.compareSync(newPassword, userPasswordUpdated.password)) {
+            //se podria comparar la haseada con la del body y ya?
+
+            return res.status(200).json({
+              updatedUser: true,
+              passwordSent: true,
+            });
+          } else {
+            return res.status(404).json({
+              updatedUser: false,
+              passwordSent: true,
+            });
+          }
+        } catch (error) {
+          return res.status(404).json({
+            error: 'error en el catch al actualizar la contraseña',
+            message: error.message,
+          });
+        }
       }
-
-
-
-
-    })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-} catch (error) {
-  return res.status(404).json({
-    error: 'error en el envío',
-    message: error.message
-  })&& next(error)
-}
-
-
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    });
+  } catch (error) {
+    return (
+      res.status(404).json({
+        error: 'error en el envío',
+        message: error.message,
+      }) && next(error)
+    );
+  }
+};
 
 //* ________________________________ READ _________________________________________
 
@@ -674,5 +659,5 @@ module.exports = {
   userById,
   verifyCode,
   changePassword,
-  sendNewPassword
+  sendNewPassword,
 };
