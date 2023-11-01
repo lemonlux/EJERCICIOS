@@ -7,7 +7,9 @@ const {
   autoLogin,
   resendCode,
   userById,
-  verifyCode
+  verifyCode,
+  changePassword,
+  sendNewPassword
 } = require('../controllers/User.controllers');
 const { upload } = require('../../middleware/files.middleware');
 const User = require('../models/User.models');
@@ -21,6 +23,8 @@ UserRoutes.post('/login', login);
 UserRoutes.post('/login/autoLogin', autoLogin);
 UserRoutes.post('/resend', resendCode)
 UserRoutes.post('/verify', verifyCode)   //es el mismo que el checkNewUser de clase
+UserRoutes.post('/changePassword', changePassword)
+UserRoutes.post('/changePassword/:id', sendNewPassword)
 
 //*----- get
 

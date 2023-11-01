@@ -519,15 +519,44 @@ const verifyCode = async (req, res, next) => {
 //?---------------------------------------------------------------------------------
 //! -------------------------- CAMBIO DE CONTRASEÑA --------------------------------
 //?-------------------------- cuando no estás logado -------------------------------
-/* vamos a hacerlo con un redirect. necesitamos el email del usuario, redirigirlo
+/* vamos a hacerlo con un redirect.  FUNCION 1 comprueba  email y redirige
+ ----------------------------------- FUNCION 2 envia la contraseña random y test
+necesitamos el email del usuario, redirigirlo
 funciones de crear transporte, mailInfo y enviarlo.
-y una funcion de creación de contraseñas random--- en utils */
+y una funcion de creación de contraseñas random--- randomPasswordGenerator en utils */
 
 
 
+const changePassword = async (req,res,next) =>{
+
+  try {
+    const { userEmail } = req.body
+  const userExists = await User.findOne({userEmail})
+
+    if (userExists){
+
+        return res.redirect(
+          307,
+          `http://localhost:8080/api/v1/users/changePassword/${userExists._id}`   //esto es lo que vamos a poner en las routes
+        )
+
+    }else{
+      return res.status(404).json('This user does not exist')
+    }
+
+  } catch (error) {
+    return res.status(404).json({
+      error: 'error en el catch',
+      message: error.message
+    })
+  }
+
+}
 
 
+const sendNewPassword = async(req,res,next)=>{
 
+}
 
 
 
@@ -571,5 +600,7 @@ module.exports = {
   autoLogin,
   resendCode,
   userById,
-  verifyCode
+  verifyCode,
+  changePassword,
+  sendNewPassword
 };
