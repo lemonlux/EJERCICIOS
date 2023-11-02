@@ -8,6 +8,7 @@ const sendEmail = require('../../utils/sendEmail');
 const { generateToken } = require('../../utils/token');
 const bcrypt = require('bcrypt');
 const randomPasswordGenerator = require('./../../utils/randomPassword');
+const validator = require('validator')
 
 //* ________________________________ POST _________________________________________
 
@@ -462,10 +463,12 @@ const verifyCode = async (req, res, next) => {
           if (updatedUser.check) {
             //esto lo hemos puesto a true
             return res.status(200).json({
+              updatedUser,
               testCheckUser: true,
             });
           } else {
             return res.status(404).json({
+              updatedUser,
               testCheckUser: false,
             });
           }
@@ -514,6 +517,8 @@ const verifyCode = async (req, res, next) => {
     );
   }
 };
+
+//* ________________________________ PATCH _________________________________________
 
 //?---------------------------------------------------------------------------------
 //! -------------------------- CAMBIO DE CONTRASEÑA --------------------------------
@@ -597,9 +602,9 @@ const sendNewPassword = async (req, res, next) => {
         contraseña que mete por el body y la hasheada */
 
           const userPasswordUpdated = await User.findById(id);
-          if (newPasswordHash === userPasswordUpdated.password){  //! SE PUEDE HACER ASI EN VEZ DE CON EL bcrypt.compareSync() ?
+          if (newPasswordHash === userPasswordUpdated.password){  
          // if (bcrypt.compareSync(newPassword, userPasswordUpdated.password)) {
-            //se podria comparar la haseada con la del body y ya?
+            //se podria comparar la hasheada con la del body y ya?
 
             return res.status(200).json({
               updatedUser: true,
@@ -628,6 +633,66 @@ const sendNewPassword = async (req, res, next) => {
     );
   }
 };
+
+//*-----------------------------------------------------------------------------------------
+//*-----------------------------------------------------------------------------------------
+//!-------------------------- controladores con AUTENTICACIÓN ------------------------------
+//*-----------------------------------------------------------------------------------------
+//*-----------------------------------------------------------------------------------------
+
+
+//?---------------------------------------------------------------------------------
+//! -------------------------- CAMBIO DE CONTRASEÑA --------------------------------
+//?-------------------------- cuando YA ESTÁS LOGADO -------------------------------
+
+/*ya estás logado por lo que no se te tiene que enviar ningun mail. necesitamos por el body la contraseña
+antigua y la actual, comparar la antigua a la guardada y validar que la nueva sea segura. entonces findByIdAndUpdate.
+también vamos a hacer un test para comprobar que se ha modificado correctamente */
+
+const modifyPassword = async (req,res,next) =>{
+  try {
+
+    const { password, newPassword } = req.body
+    const validPassword = validator.isStrongPassword(newPassword)
+
+    if (validPassword){
+      //vamos a sacar la información de usuario del TOKEN por lo que necesitamos la req.user
+      const { _id } = req.user
+
+
+
+
+
+    }else{
+      return res.status(404).json('Password is not strong enough')
+    }
+
+
+  } catch (error) {
+    return res.status(404).json({
+      error: 'error en el catch',
+      message: error.message
+    })
+    
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //* ________________________________ READ _________________________________________
 

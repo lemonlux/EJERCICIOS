@@ -32,7 +32,7 @@ const decoded = verifyToken(token, process.env.JWT_SECRET)
 
 
 req.user = await User.findById(decoded.id)  //esto es id y no _id pq viene asi del token!! 
-//! --- ???? no entiendo
+//! --- ???? no entiendo el req.user
 next ()
 } catch (error){
     return next(error)
