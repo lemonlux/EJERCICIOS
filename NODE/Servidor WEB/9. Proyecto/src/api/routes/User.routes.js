@@ -1,3 +1,6 @@
+const { upload } = require('../../middleware/files.middleware');
+const User = require('../models/User.models');
+const { isAuth } = require('../../middleware/auth.middleware')
 const {
   userRegister,
   stateRegister,
@@ -9,10 +12,15 @@ const {
   userById,
   verifyCode,
   changePassword,
-  sendNewPassword
+  sendNewPassword,
+  modifyPassword,
+  userByEmail
 } = require('../controllers/User.controllers');
-const { upload } = require('../../middleware/files.middleware');
-const User = require('../models/User.models');
+
+
+
+
+
 
 const UserRoutes = require('express').Router();
 //*---- post
@@ -25,17 +33,19 @@ UserRoutes.post('/resend', resendCode)
 UserRoutes.post('/verify', verifyCode)   //es el mismo que el checkNewUser de clase
 
 //*----- patch
-UserRoutes.patch('/changePassword', changePassword)    
+UserRoutes.patch('/setNewPassword', changePassword)    
 
 
 //*----- get
 
 UserRoutes.get('/:id', userById)
+UserRoutes.get('/findByEmail/find', userByEmail)
 
 
 
 //!---------- controladores autenticados
-
+UserRoutes.patch('/modifyPassword', [isAuth], modifyPassword) 
+//el middleware NUESTRO (personalizado) se mete entre corchetes. podemos meter varios pero el orden importa
 
 
 //!---------- controladores de redirect

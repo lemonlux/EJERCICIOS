@@ -39,3 +39,5 @@ next ()
 }
 
 }
+
+module.exports = { isAuth }

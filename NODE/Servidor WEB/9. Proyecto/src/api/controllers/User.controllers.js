@@ -657,8 +657,47 @@ const modifyPassword = async (req,res,next) =>{
 
     if (validPassword){
       //vamos a sacar la información de usuario del TOKEN por lo que necesitamos la req.user
-      const { _id } = req.user
+      const { _id } = req.user   //viene de la información de mongodb por eso es _id
 
+      if (bcrypt.compareSync(password, req.user.password)){ //compara la guardada con la que hemos metido (no la nueva)
+          //si matchean -- vamos a encriptar la nueva y guardarla
+
+          const newPasswordHashed = bcrypt.hashSync(newPassword, 10)
+          
+          try {
+            await User.findOneAndUpdate( _id, { password: newPasswordHashed})
+
+            //todo----------------- TESTING PARA VER SI SE HA GUARDADO CORRECTAMENTE
+            //* comparamos LAS CONTRASEÑAS
+
+            //vamos a buscar el usuario recien guardado
+
+            const updatedUser = await User.findById(_id)
+            
+            if(bcrypt.compareSync(newPassword, updatedUser.password)){ //CON EL METODO compareSync () !!!!!!
+              return res.status(200).json({
+                updatedUser,
+                update: true
+              })
+            }else{
+              return res.status(200).json({
+                updatedUser,
+                update: false
+              })
+            }
+            
+          } catch (error) {
+            return res.status(404).json({
+              error: 'error en el guardado',
+              message: error.message
+            })
+          }
+
+
+
+      }else{
+        return res.status(404).json('Passwords do not match')
+      }
 
 
 
@@ -713,6 +752,38 @@ const userById = async (req, res, next) => {
   }
 };
 
+
+const userByEmail = async (req,res,next) =>{
+try {
+  const { userEmail } = req.body
+  const userByEmail = await User.findOne({ userEmail })
+
+  if (userByEmail){
+    return res.status(200).json({
+      userByEmail,
+      message: 'user found'
+    })
+  }else{
+    return res.status(404).json({
+      userEmail,
+      message: 'user not found'
+    })
+  }
+
+  
+} catch (error) {
+  return res.status(404).json({
+    error: 'error en el catch',
+    message: error.message
+  })
+}
+
+}
+
+
+
+
+
 module.exports = {
   userRegister,
   stateRegister,
@@ -725,4 +796,6 @@ module.exports = {
   verifyCode,
   changePassword,
   sendNewPassword,
+  modifyPassword,
+  userByEmail
 };
