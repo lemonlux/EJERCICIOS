@@ -15,7 +15,8 @@ const {
   sendNewPassword,
   modifyPassword,
   userByEmail,
-  deleteUser
+  deleteUser,
+  updateUser
 } = require('../controllers/User.controllers');
 
 
@@ -34,7 +35,7 @@ UserRoutes.post('/resend', resendCode)
 UserRoutes.post('/verify', verifyCode)   //es el mismo que el checkNewUser de clase
 
 //*----- patch
-UserRoutes.patch('/setNewPassword', changePassword)    
+UserRoutes.patch('/password/setNewPassword', changePassword)    //EN LA RUTA PONEMOS DOS / / PORQUE SE CRUZA CON LA OTRA DEL PATCH
 
 
 //*----- get
@@ -45,8 +46,9 @@ UserRoutes.get('/findByEmail/find', userByEmail)
 
 
 //!---------- controladores autenticados
-UserRoutes.patch('/modifyPassword', [isAuth], modifyPassword) 
+UserRoutes.patch('/modifyPassword', [isAuth], modifyPassword)  
 UserRoutes.delete('/', [isAuth], deleteUser)
+UserRoutes.patch('/update/updateUser', [isAuth], upload.single('image'), updateUser)
 //el middleware NUESTRO (personalizado) se mete entre corchetes. podemos meter varios pero el orden importa
 
 

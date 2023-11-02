@@ -721,20 +721,22 @@ const updateUser = async (req, res, next) => {
 
     //instanciamos nuevo user
 
-    const updatedUser = new User(req.body);
+    const updating = new User(req.body);
+
+    // console.log(updating)
 
     if (req.file) {
-      updatedUser.image = catchImg;
+      updating.image = catchImg;
     }
 
     //!--- info que el usuario NO puede cambiar!!
 
-    updatedUser._id = req.user._id;
-    updatedUser.password = req.user.password;
-    updatedUser.check = req.user.check;
-    updatedUser.rol = req.user.rol;
-    updatedUser.email = req.user.email;
-    updatedUser.confirmationCode = req.user.confirmationCode;
+    updating._id = req.user._id;
+    updating.password = req.user.password;
+    updating.check = req.user.check;
+    updating.rol = req.user.rol;
+    updating.email = req.user.email;
+    updating.confirmationCode = req.user.confirmationCode;
 
     //!
     //el genero es un enum, y el enum solo funciona bien cuando hacemos save(), asiq tenemos que meterle una condicion
@@ -744,13 +746,69 @@ const updateUser = async (req, res, next) => {
       esto tb se puede asegurar por el front end pero lo mejor es hacerlo por los dos lados */
 
       //necesitamos una funcion que solo nos permita meter un genero de los de la enum -- en utils
-
-
-
-
-
-
+      const genderOk = validEnum(req.body?.gender);
+      if (genderOk) {
+        updating.gender = req.body?.gender;
+      } else {
+        updating.gender = req.user.gender;
+      }
     }
+
+      //--- ahora a ACTUALIZAR ----- trycatch
+
+      try {
+        await User.findByIdAndUpdate(req.user._id, updating);
+        console.log(await User.findById(req.user._id))
+        if (req.file) deleteImgCloudinary(req.user.image);
+
+        //todo-------- TESTING
+
+        //hacemos la constante del usuario actualizado
+
+        const updatedUser = await User.findById(req.user._id);
+        //necesitamos tambien LAS KEYS del objeto del req.body para ver qué se ha actualizado
+        const updatedKeys = Object.keys(req.body);
+
+        const test = []; //vamos a meter los testing aqui
+
+        /*recorremos el string que nos devuelve el Object.keys comparando las que nos llegan del body
+        con las que tenemos guardadas en el update, y las de antes (del user antes de ser actualizado)*/
+
+        updatedKeys.forEach((key) => {
+          if (updatedUser[key] === req.body[key]){
+
+            if (updatedUser[key] != req.user[key]){
+              test.push({ [key]: true })    //si coincide el body con la actualizada y es diferente a la de antes, true
+            }else{
+              test.push({ [key]: 'same old info' }) //si no es diferente a la de antes, es la misma info
+            }
+          }else{
+             test.push({ [key]: false }); //si no coinciden, no se ha guardado bien
+          }
+
+
+            //!!   tambien tenemos que asegurarnos de la foto
+
+          if (req.file){
+            updatedUser.image === catchImg ? test.push({ [key]: true }) : test.push({ [key]: false }) 
+          }
+
+          //una vez hecho el testing enviamos la res con el usuario actualizado y el test
+
+            
+        });
+
+        return res.status(200).json({
+          updatedUser,
+          test
+        })
+      } catch (error) {
+        return res.status(404).json({
+          error: 'error en el catch del update',
+          message: error.message,
+        });
+      }
+    
   } catch (error) {
     return res.status(404).json({
       error: 'error en el catch',
@@ -841,4 +899,5 @@ module.exports = {
   modifyPassword,
   userByEmail,
   deleteUser,
+  updateUser
 };
