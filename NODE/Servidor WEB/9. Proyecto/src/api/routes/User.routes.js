@@ -14,7 +14,8 @@ const {
   changePassword,
   sendNewPassword,
   modifyPassword,
-  userByEmail
+  userByEmail,
+  deleteUser
 } = require('../controllers/User.controllers');
 
 
@@ -45,6 +46,7 @@ UserRoutes.get('/findByEmail/find', userByEmail)
 
 //!---------- controladores autenticados
 UserRoutes.patch('/modifyPassword', [isAuth], modifyPassword) 
+UserRoutes.delete('/', [isAuth], deleteUser)
 //el middleware NUESTRO (personalizado) se mete entre corchetes. podemos meter varios pero el orden importa
 
 

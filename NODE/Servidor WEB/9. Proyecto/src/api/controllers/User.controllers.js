@@ -8,7 +8,8 @@ const sendEmail = require('../../utils/sendEmail');
 const { generateToken } = require('../../utils/token');
 const bcrypt = require('bcrypt');
 const randomPasswordGenerator = require('./../../utils/randomPassword');
-const validator = require('validator')
+const validator = require('validator');
+const validEnum = require('./../../utils/validEnum');
 
 //* ________________________________ POST _________________________________________
 
@@ -602,8 +603,8 @@ const sendNewPassword = async (req, res, next) => {
         contraseña que mete por el body y la hasheada */
 
           const userPasswordUpdated = await User.findById(id);
-          if (newPasswordHash === userPasswordUpdated.password){  
-         // if (bcrypt.compareSync(newPassword, userPasswordUpdated.password)) {
+          if (newPasswordHash === userPasswordUpdated.password) {
+            // if (bcrypt.compareSync(newPassword, userPasswordUpdated.password)) {
             //se podria comparar la hasheada con la del body y ya?
 
             return res.status(200).json({
@@ -640,7 +641,6 @@ const sendNewPassword = async (req, res, next) => {
 //*-----------------------------------------------------------------------------------------
 //*-----------------------------------------------------------------------------------------
 
-
 //?---------------------------------------------------------------------------------
 //! -------------------------- CAMBIO DE CONTRASEÑA --------------------------------
 //?-------------------------- cuando YA ESTÁS LOGADO -------------------------------
@@ -649,89 +649,139 @@ const sendNewPassword = async (req, res, next) => {
 antigua y la actual, comparar la antigua a la guardada y validar que la nueva sea segura. entonces findByIdAndUpdate.
 también vamos a hacer un test para comprobar que se ha modificado correctamente */
 
-const modifyPassword = async (req,res,next) =>{
+const modifyPassword = async (req, res, next) => {
+  console.log('hola');
   try {
+    const { password, newPassword } = req.body;
+    const validPassword = validator.isStrongPassword(newPassword);
 
-    const { password, newPassword } = req.body
-    const validPassword = validator.isStrongPassword(newPassword)
-
-    if (validPassword){
+    if (validPassword) {
       //vamos a sacar la información de usuario del TOKEN por lo que necesitamos la req.user
-      const { _id } = req.user   //viene de la información de mongodb por eso es _id
+      const { _id } = req.user; //viene de la información de mongodb por eso es _id
 
-      if (bcrypt.compareSync(password, req.user.password)){ //compara la guardada con la que hemos metido (no la nueva)
-          //si matchean -- vamos a encriptar la nueva y guardarla
+      if (bcrypt.compareSync(password, req.user.password)) {
+        //compara la guardada con la que hemos metido (no la nueva)
+        //si matchean -- vamos a encriptar la nueva y guardarla
 
-          const newPasswordHashed = bcrypt.hashSync(newPassword, 10)
-          
-          try {
-            await User.findOneAndUpdate( _id, { password: newPasswordHashed})
+        const newPasswordHashed = bcrypt.hashSync(newPassword, 10);
 
-            //todo----------------- TESTING PARA VER SI SE HA GUARDADO CORRECTAMENTE
-            //* comparamos LAS CONTRASEÑAS
+        try {
+          await User.findOneAndUpdate(_id, { password: newPasswordHashed });
 
-            //vamos a buscar el usuario recien guardado
+          //todo----------------- TESTING PARA VER SI SE HA GUARDADO CORRECTAMENTE
+          //* comparamos LAS CONTRASEÑAS
 
-            const updatedUser = await User.findById(_id)
-            
-            if(bcrypt.compareSync(newPassword, updatedUser.password)){ //CON EL METODO compareSync () !!!!!!
-              return res.status(200).json({
-                updatedUser,
-                update: true
-              })
-            }else{
-              return res.status(200).json({
-                updatedUser,
-                update: false
-              })
-            }
-            
-          } catch (error) {
-            return res.status(404).json({
-              error: 'error en el guardado',
-              message: error.message
-            })
+          //vamos a buscar el usuario recien guardado
+
+          const updatedUser = await User.findById(_id);
+
+          if (bcrypt.compareSync(newPassword, updatedUser.password)) {
+            //CON EL METODO compareSync () !!!!!!
+            return res.status(200).json({
+              updatedUser,
+              update: true,
+            });
+          } else {
+            return res.status(200).json({
+              updatedUser,
+              update: false,
+            });
           }
-
-
-
-      }else{
-        return res.status(404).json('Passwords do not match')
+        } catch (error) {
+          return res.status(404).json({
+            error: 'error en el guardado',
+            message: error.message,
+          });
+        }
+      } else {
+        return res.status(404).json('Passwords do not match');
       }
-
-
-
-
-    }else{
-      return res.status(404).json('Password is not strong enough')
+    } else {
+      return res.status(404).json('Password is not strong enough');
     }
-
-
   } catch (error) {
     return res.status(404).json({
       error: 'error en el catch',
-      message: error.message
-    })
-    
+      message: error.message,
+    });
   }
-}
+};
+
+//?---------------------------------------------------------------------------------
+//! --------------------------------- UPDATE ---------------------------------------
+//?---------------------------------------------------------------------------------
+
+const updateUser = async (req, res, next) => {
+  //si hay subida imagen siempre se captura por si hay un error borrarla --> upload en la ruta
+  let catchImg = req.file?.path;
+
+  try {
+    //vamos a potencialmente actualizar elementos UNIQUE ---> syncIndexes()
+    await User.syncIndexes();
+
+    //instanciamos nuevo user
+
+    const updatedUser = new User(req.body);
+
+    if (req.file) {
+      updatedUser.image = catchImg;
+    }
+
+    //!--- info que el usuario NO puede cambiar!!
+
+    updatedUser._id = req.user._id;
+    updatedUser.password = req.user.password;
+    updatedUser.check = req.user.check;
+    updatedUser.rol = req.user.rol;
+    updatedUser.email = req.user.email;
+    updatedUser.confirmationCode = req.user.confirmationCode;
+
+    //!
+    //el genero es un enum, y el enum solo funciona bien cuando hacemos save(), asiq tenemos que meterle una condicion
+
+    if (req.body?.gender) {
+      /*si por el body me quiere cambiar el genero, tendrá que ser de los disponibles
+      esto tb se puede asegurar por el front end pero lo mejor es hacerlo por los dos lados */
+
+      //necesitamos una funcion que solo nos permita meter un genero de los de la enum -- en utils
 
 
 
 
 
 
+    }
+  } catch (error) {
+    return res.status(404).json({
+      error: 'error en el catch',
+      message: error.message,
+    });
+  }
+};
 
+//?---------------------------------------------------------------------------------
+//! --------------------------------- DELETE ---------------------------------------
+//?---------------------------------------------------------------------------------
 
+const deleteUser = async (req, res, next) => {
+  //aquí NO hay que hacer destructuring porque la info la vamos a sacar del req.user
+  try {
+    await User.findByIdAndDelete(req.user?._id);
+    deleteImgCloudinary(req.user?.image);
 
+    //lo buscamos pa ver si se ha borrado correctamente
+    const userTest = await User.findById(req.user?._id);
 
-
-
-
-
-
-
-
+    return res
+      .status(userTest ? 404 : 200)
+      .json({ deleteTest: userTest ? false : true });
+  } catch (error) {
+    return res.status(404).json({
+      error: 'error en el catch',
+      message: error.message,
+    });
+  }
+};
 
 //* ________________________________ READ _________________________________________
 
@@ -752,37 +802,29 @@ const userById = async (req, res, next) => {
   }
 };
 
+const userByEmail = async (req, res, next) => {
+  try {
+    const { userEmail } = req.body;
+    const userByEmail = await User.findOne({ userEmail });
 
-const userByEmail = async (req,res,next) =>{
-try {
-  const { userEmail } = req.body
-  const userByEmail = await User.findOne({ userEmail })
-
-  if (userByEmail){
-    return res.status(200).json({
-      userByEmail,
-      message: 'user found'
-    })
-  }else{
+    if (userByEmail) {
+      return res.status(200).json({
+        userByEmail,
+        message: 'user found',
+      });
+    } else {
+      return res.status(404).json({
+        userEmail,
+        message: 'user not found',
+      });
+    }
+  } catch (error) {
     return res.status(404).json({
-      userEmail,
-      message: 'user not found'
-    })
+      error: 'error en el catch',
+      message: error.message,
+    });
   }
-
-  
-} catch (error) {
-  return res.status(404).json({
-    error: 'error en el catch',
-    message: error.message
-  })
-}
-
-}
-
-
-
-
+};
 
 module.exports = {
   userRegister,
@@ -797,5 +839,6 @@ module.exports = {
   changePassword,
   sendNewPassword,
   modifyPassword,
-  userByEmail
+  userByEmail,
+  deleteUser,
 };
