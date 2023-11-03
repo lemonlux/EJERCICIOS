@@ -9,7 +9,7 @@ dotenv.config();
 const connect = require('./src/utils/db');
 connect();
 
-//!--2--- CONEXION CON CLOUDINARY
+//!--2--- CONEXION CON CLOUDINARY --
 
 const { configCloudinary } = require('./src/middleware/files.middleware');
 configCloudinary();
@@ -53,5 +53,5 @@ app.use((error, req, res) => {
 
 app.disable('x-powered-by');
 app.listen(PORT, () => {
-  console.log(`💻 Server listening on port 📍http://localhost:${PORT}`);
+  console.log(`💻 Server listening on port: 📍http://localhost:${PORT}`);
 });
