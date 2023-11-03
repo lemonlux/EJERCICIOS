@@ -5,7 +5,7 @@
 //!- importaciones
 
 const { Error } = require('mongoose')
-const User = require('./../api/models/User.models')
+const User = require('../api/models/User.models')
 const dotenv = require ('dotenv')
 dotenv.config()
 const { verifyToken } = require('../utils/token')

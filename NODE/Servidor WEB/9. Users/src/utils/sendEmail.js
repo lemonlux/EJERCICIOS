@@ -2,7 +2,7 @@
 const dotenv = require('dotenv')
 dotenv.config()
 const nodemailer = require('nodemailer')
-const { setSendEmail } = require('./../state/state.data')
+const { setSendEmail } = require('../state/state.data')
 
 //vamos a hacer una funcion que requiere el email del user, el nombre del user y el codigo de confirmacion para enviar el email
 //* esto es igual que hacerlo largo pero componetizando las funciones

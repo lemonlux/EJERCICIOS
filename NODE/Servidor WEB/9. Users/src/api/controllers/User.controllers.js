@@ -7,9 +7,9 @@ const { setSendEmail, getSendEmail } = require('../../state/state.data');
 const sendEmail = require('../../utils/sendEmail');
 const { generateToken } = require('../../utils/token');
 const bcrypt = require('bcrypt');
-const randomPasswordGenerator = require('./../../utils/randomPassword');
+const randomPasswordGenerator = require('../../utils/randomPassword');
 const validator = require('validator');
-const validEnum = require('./../../utils/validEnum');
+const validEnum = require('../../utils/validEnum');
 
 //* ________________________________ POST _________________________________________
 
