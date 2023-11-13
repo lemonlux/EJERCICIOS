@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import { H1 } from '../src/components/index'
 import './App.css'
 
 const  App = ()=> {
@@ -7,7 +7,9 @@ const  App = ()=> {
 
   return (
     <>
-    {}
+    {/*  1. SALUDO  */ }
+
+    <H1/>
 
     </>
   )
