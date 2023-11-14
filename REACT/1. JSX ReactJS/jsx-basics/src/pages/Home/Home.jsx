@@ -12,7 +12,7 @@ export const Home = () => {
   return (
     <div>
         {!dismount && (<Content/>)}
-        <button onClick={() => setDismount(value => !value)}>lo pongo o lo quito {dismount.toString()}</button>
+        <button onClick={() => setDismount(value => !value)}>{ dismount == true ? "Salúdame" : dismount == false ? "Quítame" : null}</button>
         {/* <button onClick={() => setChangeValue((value) => !value)}>
         {" "}
       </button> */}
