@@ -22,10 +22,12 @@ const App = () => {
   // console.log(characters)
   const [ characters, setCharacters ] = useState[()]
 
-  useEffect(()=>{
+  // useEffect(()=>{
+   
+  // }, [])
 
-  }, [])
 
+  //!---------- hace falta el fetch 
   
 
   return (
