@@ -5,33 +5,35 @@ export const CV = {
       city: "Murcia, España",
       email: "sololucia17@gmail.com",
       birthDate: "17/02/1996",
-      image: "",
+      image: "https://res.cloudinary.com/daxddugwt/image/upload/v1700143827/Captura_de_pantalla_2023-10-11_a_las_16.47.07_rltlp8.png",
       gitHub: "https://github.com/lemonlux/",
       aboutMe: [
         {
-          info: "🤖 My armor, it was never a distraction or a hobby, it was a cocoon. I am Iron Man.",
+          info: "",
         },
         {
-          info: "🔩 CEO of Stark Industries.",
+          info: "",
         },
         {
-          info: "🕶 Genius, billionaire, playboy, philanthropist.",
+          info: "",
         },
         {
-          info: "🦾 I do have a responsibility to keep my inventions from evil hands – but I have a greater responsibility to oppose that evil any way I can.",
+          info: "",
         },
       ],
     },
     education: [
       {
         name: "Bootcamp Full Stack Developer",
+        id: 3,
         date: "sept 2023 - dic 2023",
         where: "NEOLAND",
         description:
           ""
       },
       {
-        name: "Máster en Ciencia e Industria Cosmética",
+        name: "Máster en Industria Cosmética",
+        id: 2,
         date: "feb 2019 - jun 2020",
         where: "Colegio Químicos de Murcia",
         description:
@@ -39,6 +41,7 @@ export const CV = {
       },
       {
         name: "Grado en Química",
+        id: 1,
         date: "2014 - 2019",
         where: "Universidad de Murcia",
         description:
@@ -51,14 +54,19 @@ export const CV = {
         date: "nov 2019 - nov 2023",
         where: "Iberchem",
         description:
-          "Mantenimiento de equipos de laboratorio, conocimientos sobre SAP, AMDIS, Agilent Data Analysis a nivel de usuario",
+          "Mantenimiento de equipos de laboratorio, conocimientos sobre SAP, AMDIS y Agilent Data Analysis.",
       }
     ],
-    languages: {
+    languages: [
+        {
+         language: "Español",
+        level: "Nativo",
+        },
+        {
       language: "Inglés",
       level: "C1",
 
-    },
+    }],
     hardSkills: [
       "HTML5",
       "CSS3",
