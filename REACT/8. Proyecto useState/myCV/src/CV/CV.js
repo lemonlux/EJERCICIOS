@@ -45,7 +45,7 @@ export const CV = {
         date: "2014 - 2019",
         where: "Universidad de Murcia",
         description:
-        "Alumna interna del departamento de Química Orgánica, desarrollando un proyecto de química computacional sobre el que más tarde basé mi TFG"
+        "Alumna interna del departamento de Química Orgánica Computacional durante 2 años, desarrollando un proyecto sobre el que más tarde basé mi TFG"
       },
     ],
     experience: [
@@ -54,7 +54,7 @@ export const CV = {
         date: "nov 2019 - nov 2023",
         where: "Iberchem",
         description:
-          "Mantenimiento de equipos de laboratorio, conocimientos sobre SAP, AMDIS y Agilent Data Analysis.",
+          "Amplios conocimientos sobre la configuración y optimización de procesos utilizando SAP, AMDIS y Agilent Data Analysis.",
       }
     ],
     languages: [

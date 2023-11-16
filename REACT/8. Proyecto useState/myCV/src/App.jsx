@@ -1,7 +1,7 @@
 import './App.css'
 import { CV } from './CV/CV'
 import { useState } from 'react'
-import { Person, About, Experience, Education, More, Toggle } from './components/index'
+import { Person, About, Experience, Education, More, Toggle, Skills, ToggleTwo } from './components/index'
 
 const App =()=> {
 
@@ -11,6 +11,7 @@ const App =()=> {
     <>
       <Person person={person}/>
       <Toggle education={education} experience={experience}/>
+      <ToggleTwo hardSkills={hardSkills} softSkills={softSkills}/>
     </>
   )
 }

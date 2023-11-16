@@ -1,27 +1,28 @@
 import { useState } from "react";
 import "./Toggle.css";
-import { Experience, Education } from "../index";
+import { Experience, Education, Skills } from "../index";
 
-export const Toggle = ({ experience, education }) => {
-  const [showEducation, setShowEducation] = useState(true);
+
+export const Toggle = ({ experience, education, skills }) => {
+  const [showCard, setShowCard] = useState(true);
   return (
     <div className="toggle">
       <button
         className="btn btn-education"
-        id={showEducation ? "active" : "inactive"}
-        onClick={() => setShowEducation(true)}
+        id={showCard ? "active" : "inactive"}
+        onClick={() => setShowCard(true)}
       >
         🎓 Education
       </button>
       <button
         className="btn btn-experience"
-        id={showEducation ? "inactive" : "active"}
-        onClick={() => setShowEducation(false)}
+        id={showCard ? "inactive" : "active"}
+        onClick={() => setShowCard(false)}
       >
         👩🏻‍💻 Experience
       </button>
       <div>
-        {showEducation ? (
+        {showCard ? (
           <Education education={education} />
         ) : (
           <Experience experience={experience} />
@@ -30,3 +31,34 @@ export const Toggle = ({ experience, education }) => {
     </div>
   );
 };
+
+
+// export const Toggle = ({ Component, SecondComponent, info, secondInfo }) => {
+//   const [showCard, setShowCard] = useState(true);
+//   return (
+//     <div className="toggle">
+//       <button
+//         className="btn btn-education"
+//         id={showCard ? "active" : "inactive"}
+//         onClick={() => setShowCard(true)}
+//       >
+//         🎓 {Component.toString()}
+//       </button>
+//       <button
+//         className="btn btn-experience"
+//         id={showCard ? "inactive" : "active"}
+//         onClick={() => setShowCard(false)}
+//       >
+//         👩🏻‍💻 {SecondComponent.toString()}
+//       </button>
+//       <div>
+//         {showCard ? (
+//           <Component info={info} />
+//         ) : (
+//           <SecondComponent secondInfo={secondInfo} />
+//         )}
+//       </div>
+//     </div>
+//   );
+// };
+
