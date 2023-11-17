@@ -1,6 +1,6 @@
 
 import './App.css'
-import { PrintValue } from './components/PrintValue/PrintValue'
+import { PrintValue, AutoFocus } from './components'
 
 const App= () => {
  
@@ -8,6 +8,7 @@ const App= () => {
   return (
     <>
      <PrintValue/>
+     <AutoFocus/>
     </>
   )
 }

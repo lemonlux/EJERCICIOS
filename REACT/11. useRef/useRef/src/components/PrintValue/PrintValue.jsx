@@ -21,7 +21,9 @@ export const PrintValue = () => {
     <div>
         <h2>{name}</h2>
         <input type='text' placeholder='name' ref={textInput}/>
-        <button onClick={() => printValue()}>Mostrar</button>
+        <button onClick={() => printValue()}>Mostrar</button>     {/* el button hace que se ejecute la funcion printValue*/}
+        <input type='text' onChange={(e) => setName(e.target.value)}/> {/* useRef vs useState  */}
+        {console.log(name)}
     </div>
   )
 }
