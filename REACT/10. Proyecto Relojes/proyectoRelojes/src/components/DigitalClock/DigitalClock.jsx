@@ -14,6 +14,7 @@ export const DigitalClock = () => {
     }, [])
 
   return (
+    
     <div className='digital-clock'><h2>{clockState}</h2></div>
   )
 }

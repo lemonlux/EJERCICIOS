@@ -1,13 +1,18 @@
 import { useState } from 'react'
 import './App.css'
-import { DigitalClock } from './components'
+import { Countdown, DigitalClock, Timer } from './components'
 
 const App =() =>{
  
 
   return (
     <>
-    <DigitalClock/>
+    <main>
+      <DigitalClock/>
+      <Countdown/>
+      <Timer/>
+    </main>
+
     </>
   )
 }
