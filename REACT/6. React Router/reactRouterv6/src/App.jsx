@@ -1,4 +1,4 @@
-
+import { Header, Footer } from './components/index'
 import './App.css'
 
 const App= () =>{
@@ -6,7 +6,7 @@ const App= () =>{
 
   return (
     <>
- 
+    <Header/>
     </>
   )
 }
