@@ -1,0 +1,13 @@
+.btn-div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    margin: 0.5rem 0 0 0;
+}
+
+button{
+    width: 80px;
+    height:30px;
+    margin: 4px;
+}

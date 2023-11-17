@@ -13,7 +13,7 @@ export const Countdown = () => {
             let minutes = Math.floor(timer % (1000 * 60 * 60) / ( 1000 * 60 ))
             let hours = Math.floor(timer % (1000 * 60 * 60 *24) / ( 1000 * 60 * 60))
             let days = Math.floor(timer / (1000 * 60 * 60 *24))
-            setTime(days + 'd' + hours + 'h' + minutes + 'min' + seconds + 's')
+            setTime(days + 'd ' + hours + 'h ' + minutes + 'min ' + seconds + 's')
 
             if (timer <= 0){
                 clearInterval(x)
@@ -24,7 +24,7 @@ export const Countdown = () => {
 
 
   return (
-    <div className='countdown'>{time}</div>
+    <div className='container countdown'><h2>{time}</h2></div>
   )
 }
 
