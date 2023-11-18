@@ -18,8 +18,8 @@ export const PrintCharacter = () => {
     if(isLoading){
         return <Loading/>
     }else{
+        return (
         <>
-        
         <Character name={name} img={img} species={species} status={status} occupation={occupation}/>
         { counter > 1 && <button className='previous-btn btn' onClick={()=> previous()}>PREVIOUS</button>}
         { counter != 1 && <button className='reset-btn btn' onClick={()=> reset()}>RESET</button>}
@@ -27,6 +27,7 @@ export const PrintCharacter = () => {
 
 
         </>
+        )
     }
 
 
