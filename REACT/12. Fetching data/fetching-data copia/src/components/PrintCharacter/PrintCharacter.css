@@ -1,0 +1,12 @@
+.btn-div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.btn{
+    width: 5rem;
+    height: 1.5rem;
+    margin: 4px;
+}

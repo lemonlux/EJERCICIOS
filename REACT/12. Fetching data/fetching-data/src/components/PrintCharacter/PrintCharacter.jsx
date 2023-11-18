@@ -7,7 +7,6 @@ export const PrintCharacter = () => {
     const { data, isLoading, hasError } = useFetch(`https://api.attackontitanapi.com/characters/${counter}`)
 
     const { name, img, species, status, occupation } = !!data && data
-    console.log(data)
 
   if (hasError){
     return (
