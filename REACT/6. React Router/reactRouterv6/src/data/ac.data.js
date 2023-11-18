@@ -1,4 +1,4 @@
-export const vilalgers = [
+export const villagers = [
 	{
 		"name": "Ace",
 		"url": "https://nookipedia.com/wiki/Ace",

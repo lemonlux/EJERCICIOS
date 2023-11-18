@@ -17,7 +17,7 @@ export const router = createBrowserRouter([
                 element: <Gallery/>
             },
             {
-                path: '/gallery/character/:id',
+                path: '/gallery/villager/:id',
                 element: <ById/>
             },
             {
