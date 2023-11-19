@@ -10,7 +10,7 @@ export const Gallery = () => {
     <h1>hola</h1>
     <section>
       {data.map((item)=>( // <Card propsDeLaCard = {item.deLaData}
-        <Card name={item.name} image_url={item.image_url} species={item.species} personality={item.personality} gender={item.gender} id={item.gender} title_color={item.title_color} key={item.id}/>
+        <Card name={item.name} image_url={item.image_url} species={item.species} personality={item.personality} gender={item.gender} id={item.id} title_color={item.title_color} key={JSON.stringify(item)}/>
       ))}
     </section>
     </>
