@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { updateToken } from '../utils/updateToken';
 
 
 const APIHeaders = {
@@ -10,7 +11,7 @@ const APIHeaders = {
 
 
   export const APIUser = axios.create({
-    baseURL: 'http://localhost:5173/',
+    baseURL: 'http://localhost:8080/api/v1',
     headers: APIHeaders,
     timeout: 60000
   })
