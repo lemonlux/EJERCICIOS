@@ -1,9 +1,7 @@
-import Swal from "sweetalert2/dist/sweetalert2.all.js"
-
-
+import { useMemo } from "react";
+import Swal from "sweetalert2/dist/sweetalert2.all.js";
 
 export const useErrorRegister = (res, setOk, setRes) => {
-    
   //! ------------------ 200 : todo ok
   if (res?.status == 200) {
     setOk(() => true);
@@ -30,7 +28,8 @@ export const useErrorRegister = (res, setOk, setRes) => {
   }
 
   //! ------------------- La contraseña no esta en el formato correcto
-  if (res?.response?.data?.includes("validation failed: password")) {
+  if (res?.response?.data?.message?.includes("validation failed: password")) {
+    console.log("entro password");
     Swal.fire({
       icon: "error",
       title: "Oops...",
@@ -43,10 +42,11 @@ export const useErrorRegister = (res, setOk, setRes) => {
 
   //! ------------------- cuando el userName ya existe
   if (
-    res?.response?.data?.includes(
+    res?.response?.data?.message?.includes(
       "E11000 duplicate key error collection: userProyect.users"
     )
   ) {
+    console.log("entro username ya existe");
     Swal.fire({
       icon: "error",
       title: "Oops...",
@@ -69,5 +69,7 @@ export const useErrorRegister = (res, setOk, setRes) => {
     });
     setRes({});
   }
-}
+};
+
+
 

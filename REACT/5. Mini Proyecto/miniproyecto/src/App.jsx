@@ -1,32 +1,33 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import { Card } from './components'
 
 
 
 const App = () => {
   
   const [ characters, setCharacters ] = useState([])
+  const [characterList, setCharacterList] = useState([])
+
+  const url = `https://rickandmortyapi.com/api/character/`
 
   const dataFunction = (async () =>{
-    console.log('hola')
-    let data = await fetch(`https://rickandmortyapi.com/api/character/`).then((res)=> res.json())
+    let data = await fetch(url).then((res)=> res.json())
     setCharacters(data.results)
+    console.log(data.results)
     
   })
 
   useEffect(() =>{
     dataFunction()
-  }, [])
+  }, [url])
 
 
   return (
     <>
      <div>
       {characters.map((item)=>(
-        <div key={item.id}>
-          <h2>{item.name}</h2>
-          <h3>{item.status}</h3>
-        </div>
+        <Card key={item.id} character={item}/>
        
       ))}
      </div>
